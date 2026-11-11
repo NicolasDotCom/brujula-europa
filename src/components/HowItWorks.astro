@@ -1,0 +1,55 @@
+---
+// Cómo funciona en 3 pasos + conversación ilustrativa.
+import ChatPreview from './ChatPreview.astro';
+
+const steps = [
+  {
+    title: 'Elige tu destino',
+    text: 'Selecciona la ruta europea que te interesa y abre el chat con un clic. El mensaje ya va escrito: solo tienes que enviarlo.',
+  },
+  {
+    title: 'Confirmación en tiempo real',
+    text: 'Tu asesor personal en Europa verifica disponibilidad, personaliza los detalles contigo y te confirma el precio final al instante.',
+  },
+  {
+    title: 'Reserva segura con un clic',
+    text: 'Recibes en tu WhatsApp un enlace oficial de Stripe para pagar desde el móvil con Apple Pay, Google Pay, tarjeta o en cuotas con Klarna.',
+  },
+];
+---
+
+<section id="como-funciona" class="section" aria-labelledby="como-title">
+  <div class="wrap grid grid-cols-1 gap-16 lg:grid-cols-12 lg:items-center lg:gap-x-10">
+    <div class="lg:col-span-6">
+      <p class="eyebrow">Cómo funciona</p>
+      <h2 id="como-title" class="display-2 mt-5">Reservar es tan sencillo como enviar un mensaje</h2>
+      <p class="lead mt-6 max-w-xl">
+        Sin carrito, sin formularios y sin letra pequeña. Hablas con una persona que conoce el destino
+        y pagas solo cuando todo está confirmado.
+      </p>
+
+      <ol class="mt-12" role="list">
+        {
+          steps.map((step, i) => (
+            <li class="step">
+              <span class="step-num" aria-hidden="true">
+                {String(i + 1).padStart(2, '0')}
+              </span>
+              <div>
+                <h3 class="font-serif text-[1.5rem] leading-tight tracking-[-0.01em]">
+                  <span class="sr-only">Paso {i + 1}: </span>
+                  {step.title}
+                </h3>
+                <p class="mt-2 max-w-md text-ink-2">{step.text}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+
+    <div class="lg:col-span-5 lg:col-start-8">
+      <ChatPreview />
+    </div>
+  </div>
+</section>

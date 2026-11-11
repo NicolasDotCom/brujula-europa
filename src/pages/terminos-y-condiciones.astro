@@ -1,0 +1,243 @@
+---
+import { site } from '../config/site';
+import LegalLayout from '../layouts/LegalLayout.astro';
+
+const sections = [
+  { id: 'ambito', title: '1. Quiénes somos y ámbito' },
+  { id: 'servicios', title: '2. Servicios' },
+  { id: 'consulta', title: '3. Consulta y presupuesto por WhatsApp' },
+  { id: 'informacion', title: '4. Información precontractual' },
+  { id: 'pago', title: '5. Formalización y pago con Stripe' },
+  { id: 'entrega', title: '6. Confirmación y documentación' },
+  { id: 'alquiler', title: '7. Alquiler de vehículos y embarcaciones' },
+  { id: 'precios', title: '8. Precios' },
+  { id: 'cambios', title: '9. Cambios y cesión de la reserva' },
+  { id: 'cancelaciones', title: '10. Cancelaciones' },
+  { id: 'requisitos', title: '11. Documentación y requisitos de viaje' },
+  { id: 'responsabilidad', title: '12. Responsabilidad y asistencia' },
+  { id: 'garantia', title: '13. Garantía de insolvencia' },
+  { id: 'reclamaciones', title: '14. Reclamaciones y ley aplicable' },
+];
+---
+
+<LegalLayout
+  title="Términos y condiciones · Brújula Europa"
+  description="Condiciones de contratación de Brújula Europa: consulta y presupuesto por WhatsApp, pago en euros mediante enlace oficial de Stripe, documentación del viaje y cancelaciones."
+  heading="Términos y condiciones"
+  intro="Cómo se contrata un viaje con Brújula Europa: de la primera consulta por WhatsApp al pago con Stripe y la documentación de tu viaje."
+  sections={sections}
+>
+  <section id="ambito">
+    <h2>1. Quiénes somos y ámbito</h2>
+    <p>
+      Estas condiciones regulan la contratación de los servicios de {site.legal.company}
+      («{site.name}»), agencia de viajes con código {site.legal.travelAgencyLicense}, cuyos datos
+      completos figuran en el <a href="/aviso-legal">aviso legal</a>. Se dirigen a personas
+      residentes en Europa, la contratación se realiza en español y se rige por la legislación
+      española y europea de protección de las personas consumidoras, en particular el Libro IV del
+      Texto Refundido de la Ley General para la Defensa de los Consumidores y Usuarios (TRLGDCU)
+      sobre viajes combinados.
+    </p>
+  </section>
+
+  <section id="servicios">
+    <h2>2. Servicios</h2>
+    <ul>
+      <li><strong>Viajes combinados:</strong> rutas que reúnen al menos dos servicios de viaje (por ejemplo, alojamiento y transporte o actividades) por un precio global.</li>
+      <li><strong>Servicios de viaje sueltos:</strong> alojamientos, traslados, billetes o actividades contratados por separado.</li>
+      <li><strong>Alquiler de vehículos y embarcaciones:</strong> coches, todoterrenos, campers, minivans con conductor, lanchas, veleros, catamaranes y yates, con o sin patrón, solos o como parte de un viaje.</li>
+      <li><strong>Asesoría de viaje:</strong> diseño de itinerarios a medida y acompañamiento durante el viaje.</li>
+    </ul>
+    <p>
+      Las rutas publicadas en la web son propuestas de partida con precio orientativo «desde». Cada
+      viaje se adapta a tus fechas y preferencias antes de contratarlo.
+    </p>
+  </section>
+
+  <section id="consulta">
+    <h2>3. Consulta y presupuesto por WhatsApp</h2>
+    <p>
+      Toda consulta se atiende por WhatsApp con un asesor de {site.name}. El asesor comprueba la
+      disponibilidad en tiempo real, ajusta el viaje contigo y te envía por escrito, en el mismo chat
+      o por correo electrónico, un presupuesto con el itinerario, los servicios incluidos, el precio
+      final en euros, el calendario de pagos y las condiciones de cancelación aplicables.
+    </p>
+    <p>
+      Consultar es gratuito y no te compromete a nada. Ninguna reserva queda formalizada sin tu
+      aceptación expresa y el pago correspondiente.
+    </p>
+  </section>
+
+  <section id="informacion">
+    <h2>4. Información precontractual</h2>
+    <p>
+      Antes de contratar un viaje combinado recibirás el formulario de información normalizada
+      previsto en la Directiva (UE) 2015/2302 y la información precontractual exigida por la ley:
+      características principales del viaje, identidad del organizador, precio total con impuestos,
+      modalidades de pago, número mínimo de participantes si lo hubiera, requisitos de pasaporte y
+      visado y condiciones de resolución. Esta información forma parte del contrato.
+    </p>
+  </section>
+
+  <section id="pago">
+    <h2>5. Formalización y pago con Stripe</h2>
+    <p>
+      Cuando aceptas el presupuesto, tu asesor te envía por WhatsApp un <strong>enlace de pago
+      oficial de Stripe</strong> (dominio <strong>buy.stripe.com</strong> o
+      <strong>checkout.stripe.com</strong>) con el importe exacto en euros (€). Puedes pagar con:
+    </p>
+    <ul>
+      <li>Tarjeta de crédito o débito (Visa, Mastercard, American Express).</li>
+      <li>Apple Pay o Google Pay.</li>
+      <li>Klarna, para fraccionar el pago en cuotas según las modalidades disponibles y sujeto a la aprobación de Klarna.</li>
+    </ul>
+    <p>
+      Los pagos con tarjeta se autentican con 3D Secure 2 conforme a la Directiva europea de servicios
+      de pago (PSD2). {site.name} nunca solicita datos de tarjeta por chat, correo o teléfono, ni
+      transferencias a cuentas personales. Según el viaje, el presupuesto puede prever el pago íntegro
+      o una señal y el resto antes de la salida; cada pago se realiza mediante su propio enlace de
+      Stripe.
+    </p>
+  </section>
+
+  <section id="entrega">
+    <h2>6. Confirmación y documentación</h2>
+    <p>
+      La reserva queda confirmada cuando se completa el pago (o la señal acordada). En las 24 horas
+      laborables siguientes recibirás por correo electrónico la confirmación de la reserva, el
+      contrato de viaje y la factura. La documentación del viaje (bonos, billetes y el itinerario
+      detallado con los contactos de asistencia) se envía por correo electrónico y WhatsApp, a más
+      tardar, 7 días antes de la salida.
+    </p>
+  </section>
+
+  <section id="alquiler">
+    <h2>7. Alquiler de vehículos y embarcaciones</h2>
+    <p>
+      El alquiler lo presta {site.legal.company} o una empresa de alquiler colaboradora, cuya
+      identidad figura en tu presupuesto y en el contrato de alquiler que firmas al recoger el
+      vehículo o al embarcar. Ese contrato recoge las condiciones de uso concretas (kilometraje,
+      combustible, zona de navegación, franquicia del seguro) y prevalece en lo que no contradiga
+      estas condiciones ni tus derechos como consumidor.
+    </p>
+    <ul>
+      <li>
+        <strong>Requisitos del conductor:</strong> carné de conducir en vigor válido en el país de
+        recogida, con la antigüedad y la edad mínimas que se indiquen para cada categoría, y tarjeta
+        a nombre del conductor principal.
+      </li>
+      <li>
+        <strong>Embarcaciones sin patrón:</strong> requieren la titulación náutica exigida para ese
+        tipo de barco y zona de navegación. Si no la tienes, el barco se alquila con patrón
+        profesional. Las lanchas que no requieren titulación se usan dentro de los límites que fije
+        la normativa local.
+      </li>
+      <li>
+        <strong>Fianza:</strong> se bloquea en tu tarjeta al iniciar el alquiler, sin cobrarse, y
+        se libera al devolver el vehículo o la embarcación en las condiciones pactadas. Su importe se
+        indica por escrito antes del pago.
+      </li>
+      <li>
+        <strong>Seguro:</strong> cada alquiler incluye seguro y asistencia; la cobertura y la
+        franquicia aplicables se detallan en el presupuesto. Puedes contratar coberturas adicionales
+        para reducir la franquicia.
+      </li>
+      <li>
+        <strong>Uso responsable:</strong> el arrendatario responde de las multas, peajes, daños no
+        cubiertos por el seguro y del uso del vehículo conforme al contrato y a la normativa local.
+      </li>
+      <li>
+        <strong>Meteorología en el mar:</strong> si el patrón o la autoridad marítima desaconsejan
+        salir por mal tiempo, te ofrecemos otra fecha o la devolución de los días no navegados.
+      </li>
+    </ul>
+  </section>
+
+  <section id="precios">
+    <h2>8. Precios</h2>
+    <p>
+      Los precios se expresan en euros e incluyen los impuestos aplicables. Los precios «desde» de la
+      web corresponden a la tarifa mínima por persona en habitación doble en los viajes, y por
+      vehículo o embarcación y día en los alquileres, según temporada y disponibilidad; el precio
+      final es el que figura en tu presupuesto. Salvo que se indique lo contrario, no incluyen vuelos
+      internacionales, seguros de viaje, tasas turísticas de pago directo en destino, combustible,
+      amarres, peajes ni gastos personales.
+    </p>
+    <p>
+      Una vez contratado un viaje combinado, su precio solo podrá revisarse en los supuestos y límites
+      que establece la ley (variaciones del coste del combustible, de las tasas e impuestos o de los
+      tipos de cambio), con un aviso mínimo de 20 días antes de la salida. Si la subida supera el 8 %
+      del precio total, podrás resolver el contrato sin penalización.
+    </p>
+  </section>
+
+  <section id="cambios">
+    <h2>9. Cambios y cesión de la reserva</h2>
+    <p>
+      Puedes solicitar cambios de fechas, servicios o viajeros, sujetos a disponibilidad. Si el cambio
+      supone una diferencia de precio, te la comunicaremos por escrito antes de aplicarlo; los gastos
+      que cobren los proveedores por la modificación se te trasladarán sin recargo.
+    </p>
+    <p>
+      En los viajes combinados puedes ceder tu reserva a otra persona que cumpla las condiciones del
+      viaje, avisándonos con al menos 7 días naturales de antelación a la salida. Ambas personas
+      responderéis solidariamente del pago del precio pendiente y de los gastos adicionales
+      justificados de la cesión.
+    </p>
+  </section>
+
+  <section id="cancelaciones">
+    <h2>10. Cancelaciones</h2>
+    <p>
+      Puedes cancelar tu viaje en cualquier momento antes de la salida. Las penalizaciones, los
+      supuestos de cancelación gratuita y los plazos de devolución se detallan en la
+      <a href="/politica-de-reembolsos">política de reembolsos</a>.
+    </p>
+  </section>
+
+  <section id="requisitos">
+    <h2>11. Documentación y requisitos de viaje</h2>
+    <p>
+      Cada viajero debe llevar su documento nacional de identidad o pasaporte en vigor y, si procede,
+      los visados, autorizaciones de viaje y requisitos sanitarios del destino. Te informaremos de
+      ellos antes de contratar, pero su obtención y vigencia corresponden a cada viajero.
+      Recomendamos contratar un seguro de viaje con cobertura de cancelación y asistencia.
+    </p>
+  </section>
+
+  <section id="responsabilidad">
+    <h2>12. Responsabilidad y asistencia</h2>
+    <p>
+      Como organizador, {site.name} responde de la correcta ejecución de los servicios de viaje
+      incluidos en el contrato, con independencia de que los presten otros proveedores. Si algo no va
+      según lo previsto, avísanos cuanto antes por WhatsApp para que podamos solucionarlo en destino.
+      Si te encuentras en dificultades durante el viaje, te prestaremos asistencia sin demora.
+    </p>
+    <p>
+      Las indemnizaciones por incumplimiento se rigen por la ley y por los convenios internacionales
+      aplicables a cada servicio de transporte, y no procederán cuando la falta de conformidad sea
+      imputable al viajero, a un tercero ajeno a los servicios contratados o a circunstancias
+      inevitables y extraordinarias.
+    </p>
+  </section>
+
+  <section id="garantia">
+    <h2>13. Garantía de insolvencia</h2>
+    <p>
+      {site.legal.company} dispone de la garantía exigida a los organizadores de viajes combinados
+      para asegurar el reembolso de los pagos y, si el transporte está incluido, la repatriación en
+      caso de insolvencia: {site.legal.insolvencyGuarantee}.
+    </p>
+  </section>
+
+  <section id="reclamaciones">
+    <h2>14. Reclamaciones y ley aplicable</h2>
+    <p>
+      Puedes presentar cualquier queja o reclamación escribiendo a
+      <a href={`mailto:${site.supportEmail}`}>{site.supportEmail}</a>; te responderemos en un plazo
+      máximo de un mes. También tienes a tu disposición hojas de reclamaciones oficiales y puedes
+      acudir al sistema arbitral de consumo o a los juzgados y tribunales de tu domicilio. Estas
+      condiciones se rigen por la legislación española.
+    </p>
+  </section>
+</LegalLayout>

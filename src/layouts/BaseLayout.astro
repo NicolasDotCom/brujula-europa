@@ -1,0 +1,153 @@
+---
+// Layout base: <head> con SEO, fuentes autoalojadas precargadas, Open Graph y datos estructurados.
+// Único JS del sitio: este aviso de cookies y el cierre del menú móvil (ambos inline, < 1 KB).
+import '../styles/global.css';
+import { Font, getImage } from 'astro:assets';
+import CookieBanner from '../components/CookieBanner.astro';
+import FloatingWhatsApp from '../components/FloatingWhatsApp.astro';
+import { experiences, lowestPrice, rentalCategories, site } from '../config/site';
+import ogSource from '../assets/photos/lofoten.jpg';
+import { siWhatsapp } from 'simple-icons';
+
+interface Props {
+  title: string;
+  description: string;
+  /** Añade los datos estructurados de la agencia (solo portada). */
+  structuredData?: boolean;
+  noindex?: boolean;
+}
+const { title, description, structuredData = false, noindex = false } = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, site.domain).href;
+const ogImage = await getImage({ src: ogSource, width: 1200, height: 630, fit: 'cover', format: 'jpg', quality: 78 });
+const ogImageUrl = new URL(ogImage.src, site.domain).href;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'TravelAgency',
+  name: site.name,
+  legalName: site.legal.company,
+  url: site.domain,
+  logo: new URL('/apple-touch-icon.png', site.domain).href,
+  image: ogImageUrl,
+  description: site.description,
+  email: site.supportEmail,
+  telephone: site.phone,
+  taxID: site.legal.nifCif,
+  currenciesAccepted: 'EUR',
+  paymentAccepted: 'Tarjeta de crédito o débito, Apple Pay, Google Pay, Klarna',
+  priceRange: `Desde ${lowestPrice} €`,
+  areaServed: { '@type': 'Place', name: 'Europa' },
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: site.legal.address.street,
+    postalCode: site.legal.address.postalCode,
+    addressLocality: site.legal.address.city,
+    addressRegion: site.legal.address.region,
+    addressCountry: 'ES',
+  },
+  openingHoursSpecification: {
+    '@type': 'OpeningHoursSpecification',
+    dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+    opens: '09:00',
+    closes: '19:00',
+  },
+  makesOffer: [
+    ...experiences.map((exp) => ({
+      '@type': 'Offer',
+      name: exp.title,
+      price: exp.priceFrom,
+      priceCurrency: 'EUR',
+      url: `${site.domain}/#destinos`,
+    })),
+    ...rentalCategories.flatMap((cat) =>
+      cat.options.map((opt) => ({
+        '@type': 'Offer',
+        name: `Alquiler: ${opt.name}`,
+        priceSpecification: {
+          '@type': 'UnitPriceSpecification',
+          price: opt.priceFrom,
+          priceCurrency: 'EUR',
+          unitText: 'día',
+        },
+        url: `${site.domain}/#alquiler`,
+      })),
+    ),
+  ],
+};
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex" />}
+
+    <Font cssVariable="--font-newsreader" preload={[{ style: 'normal' }]} />
+    <Font cssVariable="--font-albert" preload />
+
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="theme-color" content="#f4efe6" />
+    <meta name="format-detection" content="telephone=no" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_ES" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Pueblo de pescadores de Reine, en las islas Lofoten, al atardecer" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    {structuredData && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
+  </head>
+  <body>
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+      <symbol id="i-whatsapp" viewBox="0 0 24 24"><path d={siWhatsapp.path} /></symbol>
+    </svg>
+    <a class="skip-link" href="#contenido">Saltar al contenido</a>
+    <slot />
+    <FloatingWhatsApp />
+    <CookieBanner />
+
+    <script is:inline>
+      (function () {
+        var KEY = 'be-cookie-consent';
+        var banner = document.getElementById('cookie-banner');
+        if (!banner) return;
+        var stored = null;
+        try { stored = localStorage.getItem(KEY); } catch (e) {}
+        if (stored) document.documentElement.dataset.cookieConsent = stored;
+        else banner.hidden = false;
+
+        document.addEventListener('click', function (e) {
+          var t = e.target instanceof Element ? e.target : null;
+          if (!t) return;
+          var choice = t.closest('#cookie-banner button[data-consent]');
+          if (choice) {
+            var value = choice.getAttribute('data-consent');
+            try { localStorage.setItem(KEY, value); } catch (err) {}
+            document.documentElement.dataset.cookieConsent = value;
+            banner.hidden = true;
+            // Punto de enganche para cargar analítica SOLO si value === 'all'.
+            document.dispatchEvent(new CustomEvent('be:consent', { detail: value }));
+            return;
+          }
+          if (t.closest('[data-cookie-settings]')) {
+            banner.hidden = false;
+            banner.querySelector('[data-consent]').focus();
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>

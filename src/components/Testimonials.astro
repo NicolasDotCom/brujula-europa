@@ -1,0 +1,81 @@
+---
+// Opiniones de clientes. Las de ejemplo (example: true) avisan en cada build hasta sustituirlas.
+// No se añaden datos estructurados de reseñas (Review/AggregateRating) a propósito.
+import { testimonials } from '../config/site';
+
+const pending = testimonials.filter((t) => t.example).length;
+if (pending > 0) {
+  console.warn(
+    `\n⚠️  [Brújula Europa] ${pending} opiniones son de EJEMPLO. Sustitúyelas por opiniones reales en src/config/site.ts (testimonials) antes de publicar: las reseñas inventadas están prohibidas en la UE.\n`,
+  );
+}
+
+/** «Marta G.» → MG · «Javier y Noelia» → JN */
+const initials = (name: string) =>
+  name
+    .replace(/\s+y\s+/i, ' ')
+    .split(/\s+/)
+    .slice(0, 2)
+    .map((part) => part.charAt(0).toUpperCase())
+    .join('');
+---
+
+<section id="opiniones" class="section bg-paper-2" aria-labelledby="opiniones-title">
+  <div class="wrap">
+    <div class="grid grid-cols-1 gap-6 lg:grid-cols-12 lg:items-end lg:gap-x-10">
+      <div class="lg:col-span-7">
+        <p class="eyebrow">Opiniones</p>
+        <h2 id="opiniones-title" class="display-2 mt-5">Lo que cuentan quienes ya han viajado con nosotros</h2>
+      </div>
+      <p class="small text-ink-2 lg:col-span-4 lg:col-start-9">
+        Pedimos la opinión por correo al terminar cada viaje o alquiler y solo publicamos las de
+        clientes con una reserva confirmada, sean buenas o mejorables.
+      </p>
+    </div>
+
+    <ul
+      class="rail mt-12 sm:block sm:columns-2 sm:gap-6 lg:mt-16 lg:columns-3"
+      role="list"
+      tabindex="0"
+      aria-label="Opiniones de clientes"
+    >
+      {
+        testimonials.map((t) => (
+          <li class="sm:mb-6 sm:break-inside-avoid">
+            <figure class="quote-card h-full">
+              <svg
+                class="h-4 w-auto self-start"
+                viewBox="0 0 100 18"
+                role="img"
+                aria-label={`Valoración: ${t.rating} de 5`}
+              >
+                {[0, 1, 2, 3, 4].map((i) => (
+                  <path
+                    transform={`translate(${i * 20} 0)`}
+                    d="M9 1.2l2.3 4.9 5.3.6-3.9 3.7 1 5.3L9 13.1l-4.7 2.6 1-5.3L1.4 6.7l5.3-.6z"
+                    fill={i < t.rating ? 'currentColor' : 'none'}
+                    stroke="currentColor"
+                    stroke-width="1.1"
+                    stroke-linejoin="round"
+                  />
+                ))}
+              </svg>
+              <blockquote class="mt-4 text-ink">
+                <p>{t.quote}</p>
+              </blockquote>
+              <figcaption class="mt-6 flex items-center gap-3">
+                <span class="avatar" aria-hidden="true">{initials(t.name)}</span>
+                <span class="flex min-w-0 flex-col leading-snug">
+                  <span class="font-semibold">
+                    {t.name} <span class="font-normal text-ink-2">· {t.city}</span>
+                  </span>
+                  <span class="small text-ink-2">{t.trip}</span>
+                </span>
+              </figcaption>
+            </figure>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>

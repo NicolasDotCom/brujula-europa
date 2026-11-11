@@ -1,0 +1,17 @@
+---
+// Aviso de cookies RGPD. La lógica (≈0,5 KB) vive en BaseLayout como <script is:inline>.
+// «Aceptar» y «Rechazar» tienen el mismo peso visual, como pide la guía de la AEPD.
+---
+
+<section id="cookie-banner" class="cookie-banner" aria-labelledby="cookie-title" data-cookie hidden>
+  <h2 id="cookie-title" class="font-serif text-[1.375rem] leading-tight">Tu privacidad, primero</h2>
+  <p class="small mt-2 text-ink-2">
+    Usamos solo almacenamiento técnico imprescindible para que la web funcione y recordar esta
+    elección. Las cookies de análisis, si algún día las activamos, solo se cargarán con tu permiso.
+    Consulta la <a class="link text-ink" href="/privacidad#cookies">política de cookies</a>.
+  </p>
+  <div class="mt-4 grid grid-cols-2 gap-2">
+    <button class="btn btn-primary btn-sm" type="button" data-consent="all">Aceptar todas</button>
+    <button class="btn btn-outline btn-sm" type="button" data-consent="necessary">Solo necesarias</button>
+  </div>
+</section>

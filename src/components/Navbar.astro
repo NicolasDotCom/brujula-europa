@@ -1,0 +1,100 @@
+---
+// Cabecera fija minimalista. En móvil, el menú es un popover nativo (Esc y clic fuera lo cierran
+// sin JS); solo 1 línea de JS para cerrarlo al elegir un enlace.
+import { getWhatsAppUrl, site, whatsappMessages } from '../config/site';
+import Icon from './Icon.astro';
+import Logo from './Logo.astro';
+
+interface Props {
+  /** En las páginas legales los anclajes apuntan a la portada. */
+  onHome?: boolean;
+}
+const { onHome = true } = Astro.props;
+const prefix = onHome ? '' : '/';
+
+const links = [
+  { href: `${prefix}#destinos`, label: 'Destinos' },
+  { href: `${prefix}#alquiler`, label: 'Alquiler' },
+  { href: `${prefix}#como-funciona`, label: 'Cómo funciona' },
+  { href: `${prefix}#garantia`, label: 'Garantía' },
+  { href: `${prefix}#faq`, label: 'Preguntas' },
+];
+const whatsappHref = getWhatsAppUrl(whatsappMessages.general);
+---
+
+<header class="site-header">
+  <div class="wrap flex h-[4.5rem] items-center justify-between gap-6">
+    <a href={onHome ? '#top' : '/'} class="-m-1 rounded-sm p-1 no-underline">
+      <Logo />
+      <span class="sr-only">, ir al inicio</span>
+    </a>
+
+    <nav aria-label="Principal" class="hidden lg:block">
+      <ul class="flex items-center gap-7 xl:gap-9" role="list">
+        {links.map((link) => (
+          <li>
+            <a class="nav-link" href={link.href}>{link.label}</a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <div class="flex items-center gap-2">
+      <a
+        class="btn btn-primary btn-sm hidden sm:inline-flex"
+        href={whatsappHref}
+        target="_blank"
+        rel="noopener"
+        data-cta="nav"
+      >
+        <Icon name="whatsapp" size={17} />
+        Hablar con un asesor
+        <span class="sr-only">(abre WhatsApp)</span>
+      </a>
+      <button
+        class="icon-btn lg:hidden"
+        type="button"
+        popovertarget="menu-movil"
+        aria-label="Abrir menú"
+        data-menu-toggle
+      >
+        <Icon name="menu" size={20} />
+      </button>
+    </div>
+  </div>
+
+  <div id="menu-movil" popover class="mobile-menu">
+    <div class="wrap pb-8">
+      <div class="flex h-[4.5rem] items-center justify-between">
+        <Logo />
+        <button class="icon-btn" type="button" popovertarget="menu-movil" popovertargetaction="hide" aria-label="Cerrar menú">
+          <Icon name="close" size={20} />
+        </button>
+      </div>
+      <nav aria-label="Menú móvil" class="mt-4">
+        <ul role="list">
+          {links.map((link) => (
+            <li>
+              <a class="mobile-menu-link" href={link.href}>
+                {link.label}
+                <Icon name="arrow" size={20} class="text-ink-2" />
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+      <a class="btn btn-primary btn-lg mt-8 w-full" href={whatsappHref} target="_blank" rel="noopener" data-cta="menu">
+        <Icon name="whatsapp" size={19} />
+        Hablar con un asesor
+        <span class="sr-only">(abre WhatsApp)</span>
+      </a>
+      <p class="small mt-4 text-center text-ink-2">{site.hours}</p>
+    </div>
+  </div>
+</header>
+
+<script is:inline>
+  document.getElementById('menu-movil')?.addEventListener('click', function (e) {
+    if (e.target instanceof Element && e.target.closest('a')) this.hidePopover();
+  });
+</script>

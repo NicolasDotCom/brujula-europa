@@ -1,0 +1,30 @@
+---
+import Footer from '../components/Footer.astro';
+import Icon from '../components/Icon.astro';
+import Navbar from '../components/Navbar.astro';
+import { getWhatsAppUrl, whatsappMessages } from '../config/site';
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Página no encontrada · Brújula Europa" description="Esta página no existe." noindex>
+  <Navbar onHome={false} />
+  <main id="contenido" class="section">
+    <div class="wrap max-w-3xl">
+      <p class="eyebrow">Error 404</p>
+      <h1 class="display-1 mt-6">Esta ruta no está en el mapa</h1>
+      <p class="lead mt-6">
+        Puede que el enlace haya cambiado. Vuelve al inicio o escríbenos y te ayudamos a encontrar tu
+        próximo viaje.
+      </p>
+      <div class="mt-9 flex flex-col gap-3 sm:flex-row">
+        <a class="btn btn-primary btn-lg" href="/">Volver al inicio</a>
+        <a class="btn btn-outline btn-lg" href={getWhatsAppUrl(whatsappMessages.general)} target="_blank" rel="noopener">
+          <Icon name="whatsapp" size={19} />
+          Hablar con un asesor
+          <span class="sr-only">(abre WhatsApp)</span>
+        </a>
+      </div>
+    </div>
+  </main>
+  <Footer onHome={false} />
+</BaseLayout>

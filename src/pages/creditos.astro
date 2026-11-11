@@ -1,0 +1,43 @@
+---
+import { photoCredits } from '../config/photos';
+import LegalLayout from '../layouts/LegalLayout.astro';
+---
+
+<LegalLayout
+  title="Créditos fotográficos · Brújula Europa"
+  description="Autoría y licencias de las fotografías publicadas en Brújula Europa."
+  heading="Créditos fotográficos"
+  intro="Las fotografías de esta web se publican bajo licencias Creative Commons. Gracias a sus autores."
+>
+  <div class="table-wrap" tabindex="0" role="region" aria-label="Créditos de las fotografías">
+    <table>
+      <thead>
+        <tr>
+          <th scope="col">Fotografía</th>
+          <th scope="col">Autor</th>
+          <th scope="col">Licencia</th>
+        </tr>
+      </thead>
+      <tbody>
+        {
+          photoCredits.map((p) => (
+            <tr>
+              <td>
+                <a href={p.sourceUrl} rel="noopener">{p.subject}</a>
+                <br />
+                <span class="small text-ink-2">{p.usedIn}</span>
+              </td>
+              <td>{p.author}</td>
+              <td>
+                <a href={p.licenseUrl} rel="noopener license">{p.license}</a>
+              </td>
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </div>
+  <p class="small text-ink-2">
+    Las imágenes se han redimensionado y recortado para su publicación web. Fuente: Wikimedia Commons.
+  </p>
+</LegalLayout>

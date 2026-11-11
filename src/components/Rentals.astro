@@ -1,0 +1,111 @@
+---
+// Alquiler de vehículos de tierra y agua: dos «cartas» editoriales con precio desde/día y un
+// CTA de WhatsApp por vehículo, con el nombre exacto codificado en el mensaje.
+import { Picture } from 'astro:assets';
+import { formatPrice, getWhatsAppUrl, rentalCategories, rentalPerks, whatsappMessages } from '../config/site';
+import Icon from './Icon.astro';
+---
+
+<section id="alquiler" class="section bg-paper-2" aria-labelledby="alquiler-title">
+  <div class="wrap">
+    <div class="grid grid-cols-1 gap-6 lg:grid-cols-12 lg:items-end lg:gap-x-10">
+      <div class="lg:col-span-7">
+        <p class="eyebrow">Alquiler de vehículos</p>
+        <h2 id="alquiler-title" class="display-2 mt-5">Muévete a tu aire, por carretera o por mar</h2>
+      </div>
+      <div class="lg:col-span-4 lg:col-start-9">
+        <p class="text-ink-2">
+          Coches, campers, veleros y yates en toda Europa. Los añadimos a tu viaje o los reservas por
+          separado, con el mismo asesor y pagando en euros con Stripe.
+        </p>
+        <p class="small mt-3 text-ink-2">Precios orientativos por día, según temporada y disponibilidad.</p>
+      </div>
+    </div>
+
+    <div class="mt-14 grid grid-cols-1 gap-16 lg:mt-20 lg:grid-cols-2 lg:gap-10">
+      {
+        rentalCategories.map((cat) => (
+          <article aria-labelledby={`alquiler-${cat.id}`} data-rental-category={cat.id}>
+            <figure>
+              <div class="rental-media">
+                <Picture
+                  src={cat.image}
+                  formats={['avif']}
+                  fallbackFormat="webp"
+                  widths={[480, 640, 800, 1080, 1280]}
+                  sizes="(min-width: 86rem) 39rem, (min-width: 64rem) 46vw, 92vw"
+                  alt={cat.imageAlt}
+                  quality={50}
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+              <figcaption class="caption mt-3">{cat.caption}</figcaption>
+            </figure>
+
+            <h3 id={`alquiler-${cat.id}`} class="card-title mt-8 flex items-center gap-3">
+              <Icon name={cat.icon} size={26} class="text-navy" />
+              {cat.title}
+            </h3>
+            <p class="mt-3 max-w-xl text-ink-2">{cat.intro}</p>
+
+            <ul class="mt-6 border-t border-line" role="list">
+              {cat.options.map((opt) => (
+                <li class="rental-row" data-rental={opt.id}>
+                  <div class="min-w-0">
+                    <h4 class="font-sans text-[1.0625rem] font-semibold leading-snug">{opt.name}</h4>
+                    <p class="small mt-1 text-ink-2">{opt.detail}</p>
+                  </div>
+                  <div class="rental-side">
+                    <p class="flex items-baseline gap-1.5 whitespace-nowrap">
+                      <span class="small text-ink-2">Desde</span>
+                      <span class="rental-price">{formatPrice(opt.priceFrom)}</span>
+                      <span class="small text-ink-2">/día</span>
+                    </p>
+                    <a
+                      class="btn btn-outline btn-sm"
+                      href={getWhatsAppUrl(opt.whatsappText)}
+                      target="_blank"
+                      rel="noopener"
+                      data-cta="rental"
+                    >
+                      <Icon name="whatsapp" size={16} />
+                      Consultar
+                      <span class="sr-only">disponibilidad de {opt.name} por WhatsApp (abre WhatsApp)</span>
+                    </a>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </article>
+        ))
+      }
+    </div>
+
+    <div class="mt-16 grid grid-cols-1 gap-6 border-t border-line pt-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-10">
+      {
+        rentalPerks.map((perk) => (
+          <p class="flex items-start gap-3">
+            <Icon name={perk.icon} size={22} class="mt-0.5 flex-none text-navy" />
+            <span class="small text-ink">{perk.text}</span>
+          </p>
+        ))
+      }
+    </div>
+
+    <div class="mt-12 flex flex-col items-start gap-4 sm:flex-row sm:items-center">
+      <a
+        class="btn btn-primary"
+        href={getWhatsAppUrl(whatsappMessages.rentals)}
+        target="_blank"
+        rel="noopener"
+        data-cta="rentals"
+      >
+        <Icon name="whatsapp" size={18} />
+        Consultar otro vehículo
+        <span class="sr-only">(abre WhatsApp)</span>
+      </a>
+      <p class="small text-ink-2">¿Buscas algo que no aparece? Motos, bicis eléctricas, autobuses para grupos… pregúntanos.</p>
+    </div>
+  </div>
+</section>

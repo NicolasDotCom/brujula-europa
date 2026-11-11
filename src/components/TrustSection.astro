@@ -1,0 +1,63 @@
+---
+// Garantía, seguridad bancaria y respaldo europeo — banda en azul marino.
+import Icon from './Icon.astro';
+import PaymentLogos from './PaymentLogos.astro';
+
+const pillars = [
+  {
+    icon: 'shield',
+    title: 'Protección PSD2 y 3D Secure 2',
+    text: 'Cada pago se confirma en la app de tu banco con autenticación reforzada, como exige la normativa europea. Nadie puede cobrar en tu nombre.',
+  },
+  {
+    icon: 'lock',
+    title: 'Pasarela cifrada de Stripe',
+    text: 'Stripe, certificado PCI DSS de nivel 1, procesa cada pago. Los datos de tu tarjeta nunca pasan por nuestras manos.',
+  },
+  {
+    icon: 'split',
+    title: 'Pago a plazos con Klarna',
+    text: 'Divide el importe en cuotas desde el mismo enlace de pago. Klarna te muestra las condiciones antes de confirmar, sin sorpresas.',
+  },
+  {
+    icon: 'person',
+    title: 'Un asesor de principio a fin',
+    text: 'La misma persona diseña tu viaje y te acompaña por WhatsApp antes, durante y después. Sin centralitas ni bots.',
+  },
+] as const;
+---
+
+<section id="garantia" class="section on-navy bg-navy text-paper" aria-labelledby="garantia-title">
+  <div class="wrap">
+    <div class="grid grid-cols-1 gap-6 lg:grid-cols-12 lg:items-end lg:gap-x-10">
+      <div class="lg:col-span-7">
+        <p class="eyebrow">Garantía y seguridad</p>
+        <h2 id="garantia-title" class="display-2 mt-5">Tu reserva, protegida de principio a fin</h2>
+      </div>
+      <p class="text-mist lg:col-span-4 lg:col-start-9">
+        Nunca te pediremos una transferencia a una cuenta personal ni los datos de tu tarjeta por
+        chat. Cada reserva se paga con un enlace oficial de Stripe, en euros y con la verificación de
+        tu banco.
+      </p>
+    </div>
+
+    <ul class="pillar-grid mt-14 grid-cols-1 sm:grid-cols-2 lg:mt-20 lg:grid-cols-4" role="list">
+      {
+        pillars.map((pillar) => (
+          <li>
+            <Icon name={pillar.icon} size={28} class="text-paper" />
+            <h3 class="mt-6 font-serif text-[1.375rem] leading-tight tracking-[-0.01em]">{pillar.title}</h3>
+            <p class="small mt-3 text-mist">{pillar.text}</p>
+          </li>
+        ))
+      }
+    </ul>
+
+    <div class="mt-12 flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
+      <p class="small max-w-sm text-mist">
+        Pagos en euros (€) con tarjeta, Apple Pay, Google Pay o a plazos con Klarna, procesados por Stripe.
+      </p>
+      <PaymentLogos />
+    </div>
+  </div>
+</section>

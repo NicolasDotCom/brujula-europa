@@ -1,0 +1,181 @@
+---
+import { site } from '../config/site';
+import LegalLayout from '../layouts/LegalLayout.astro';
+
+const sections = [
+  { id: 'resumen', title: 'Resumen' },
+  { id: 'desistimiento', title: '1. Derecho de desistimiento' },
+  { id: 'cancelacion', title: '2. Si cancelas antes de la salida' },
+  { id: 'alquileres', title: '3. Alquileres de vehículos y barcos' },
+  { id: 'gratuita', title: '4. Cancelación sin penalización' },
+  { id: 'nuestra-parte', title: '5. Si cancelamos nosotros' },
+  { id: 'modificaciones', title: '6. Modificaciones' },
+  { id: 'devolucion', title: '7. Cómo y cuándo recibes el dinero' },
+  { id: 'solicitud', title: '8. Cómo solicitarlo' },
+];
+
+const tiers = [
+  { when: 'Más de 60 días antes de la salida', fee: 'Solo los gastos de gestión indicados en tu presupuesto (máx. 50 € por persona)' },
+  { when: 'Entre 60 y 31 días antes', fee: '15 % del precio total' },
+  { when: 'Entre 30 y 15 días antes', fee: '35 % del precio total' },
+  { when: 'Entre 14 y 3 días antes', fee: '60 % del precio total' },
+  { when: 'Menos de 72 horas o no presentarse', fee: '100 % del precio total' },
+];
+
+const rentalTiers = [
+  { vehicle: 'Coches, todoterrenos y minivans', free: 'Hasta 48 horas antes de la recogida', after: 'Se cobra un día de alquiler' },
+  { vehicle: 'Campers y autocaravanas', free: 'Hasta 30 días antes', after: '30 % hasta 8 días antes; 50 % en los últimos 7 días' },
+  { vehicle: 'Lanchas (alquiler por días)', free: 'Hasta 72 horas antes', after: '50 % del importe' },
+  { vehicle: 'Veleros, catamaranes y yates', free: 'Hasta 60 días antes', after: '50 % hasta 30 días antes; 100 % después, salvo que se vuelva a alquilar' },
+];
+---
+
+<LegalLayout
+  title="Política de reembolsos · Brújula Europa"
+  description="Condiciones de cancelación, modificación y devolución de Brújula Europa: penalizaciones, cancelación gratuita y reembolso por el mismo método de pago en Stripe."
+  heading="Política de reembolsos"
+  intro="Qué pasa si necesitas cancelar o cambiar tu viaje, cuánto se devuelve y cómo llega el dinero a tu cuenta."
+  sections={sections}
+>
+  <section id="resumen">
+    <h2>Resumen</h2>
+    <div class="callout">
+      <ul>
+        <li>Puedes cancelar en cualquier momento antes de la salida.</li>
+        <li>Las condiciones exactas de tu viaje te las enviamos por escrito <strong>antes de pagar</strong> y prevalecen sobre la tabla general.</li>
+        <li>Las devoluciones se hacen siempre <strong>por el mismo método de pago en Stripe</strong>, en un máximo de 14 días.</li>
+        <li>Si cancelamos nosotros o hay circunstancias extraordinarias en destino, te devolvemos el 100 %.</li>
+        <li>En los alquileres de barcos, si el mal tiempo impide salir, te ofrecemos otra fecha o te devolvemos los días no navegados.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="desistimiento">
+    <h2>1. Derecho de desistimiento</h2>
+    <p>
+      El derecho de desistimiento de 14 días previsto para las compras a distancia <strong>no se
+      aplica</strong> a los servicios de alojamiento, transporte y actividades de ocio contratados
+      para una fecha o un periodo concretos (artículo 103.l del TRLGDCU), que son la mayoría de
+      nuestros viajes. En su lugar, la ley te reconoce el derecho a cancelar el viaje en cualquier
+      momento antes de la salida, en las condiciones que se explican a continuación.
+    </p>
+    <p>
+      Si contratas solo un servicio de asesoría sin fecha de prestación concreta, dispones de 14 días
+      naturales para desistir sin dar explicaciones, salvo que el servicio ya se haya prestado por
+      completo con tu consentimiento.
+    </p>
+  </section>
+
+  <section id="cancelacion">
+    <h2>2. Si cancelas antes de la salida</h2>
+    <p>
+      Puedes resolver tu contrato de viaje combinado en cualquier momento antes del inicio, abonando
+      una penalización razonable (artículo 160 del TRLGDCU). Salvo que tu presupuesto indique otras
+      condiciones más favorables, aplicamos estas penalizaciones tipo:
+    </p>
+    <div class="table-wrap" tabindex="0" role="region" aria-label="Penalizaciones por cancelación">
+      <table>
+        <thead>
+          <tr><th scope="col">Cuándo cancelas</th><th scope="col">Penalización</th></tr>
+        </thead>
+        <tbody>
+          {tiers.map((t) => (
+            <tr><td>{t.when}</td><td>{t.fee}</td></tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p>
+      En los servicios de viaje sueltos (por ejemplo, solo alojamiento), se aplican las condiciones
+      de cancelación del proveedor, que te indicaremos en el presupuesto antes del pago.
+    </p>
+  </section>
+
+  <section id="alquileres">
+    <h2>3. Alquileres de vehículos y barcos</h2>
+    <p>
+      Los alquileres son servicios con fecha concreta, por lo que tampoco tienen derecho de
+      desistimiento. Puedes cancelarlos con estas condiciones de referencia, salvo que tu
+      presupuesto indique otras más favorables:
+    </p>
+    <div class="table-wrap" tabindex="0" role="region" aria-label="Cancelación de alquileres">
+      <table>
+        <thead>
+          <tr><th scope="col">Vehículo</th><th scope="col">Cancelación gratuita</th><th scope="col">Después</th></tr>
+        </thead>
+        <tbody>
+          {rentalTiers.map((t) => (
+            <tr><td>{t.vehicle}</td><td>{t.free}</td><td>{t.after}</td></tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p>
+      Si el patrón o la autoridad marítima desaconsejan salir por mal tiempo, no se aplica ninguna
+      penalización: te ofrecemos otra fecha o te devolvemos los días no navegados. La fianza nunca
+      se cobra por cancelar: solo se bloquea durante el alquiler.
+    </p>
+  </section>
+
+  <section id="gratuita">
+    <h2>4. Cancelación sin penalización</h2>
+    <p>Recuperas el 100 % de lo pagado, sin penalización alguna, cuando:</p>
+    <ul>
+      <li>
+        Concurren <strong>circunstancias inevitables y extraordinarias</strong> en el destino o en sus
+        inmediaciones que afecten de forma significativa a la ejecución del viaje (por ejemplo,
+        catástrofes naturales, conflictos o alertas sanitarias oficiales).
+      </li>
+      <li>Modificamos de forma significativa alguna característica principal del viaje y no aceptas el cambio.</li>
+      <li>El precio sube más de un 8 % después de contratar.</li>
+    </ul>
+  </section>
+
+  <section id="nuestra-parte">
+    <h2>5. Si cancelamos nosotros</h2>
+    <p>
+      Si cancelamos tu viaje por causas que no te son imputables, podrás elegir entre un viaje
+      alternativo de calidad equivalente o superior, o el reembolso íntegro de lo pagado. Cuando
+      proceda según la ley, además, te indemnizaremos.
+    </p>
+  </section>
+
+  <section id="modificaciones">
+    <h2>6. Modificaciones</h2>
+    <p>
+      Puedes pedir cambios de fecha o de viajeros sujetos a disponibilidad. Si el nuevo precio es
+      mayor, abonas solo la diferencia mediante un nuevo enlace de Stripe; si es menor, te
+      reembolsamos la diferencia por el mismo método de pago. Los gastos que cobren los proveedores
+      por el cambio se te comunican por escrito antes de confirmarlo.
+    </p>
+  </section>
+
+  <section id="devolucion">
+    <h2>7. Cómo y cuándo recibes el dinero</h2>
+    <ul>
+      <li>
+        <strong>Mismo método de pago:</strong> el reembolso se emite a través de Stripe a la misma
+        tarjeta, Apple Pay o Google Pay con los que pagaste. No hacemos devoluciones en efectivo ni a
+        cuentas distintas.
+      </li>
+      <li>
+        <strong>Plazo:</strong> emitimos el reembolso en un máximo de 14 días naturales desde la
+        cancelación. El abono suele aparecer en tu cuenta entre 5 y 10 días hábiles después,
+        según tu banco.
+      </li>
+      <li>
+        <strong>Klarna:</strong> si pagaste a plazos, Klarna ajusta automáticamente tu plan de pagos y
+        te devuelve las cuotas ya abonadas que correspondan.
+      </li>
+    </ul>
+  </section>
+
+  <section id="solicitud">
+    <h2>8. Cómo solicitarlo</h2>
+    <p>
+      Escríbenos por WhatsApp a tu asesor o a <a href={`mailto:${site.supportEmail}`}>{site.supportEmail}</a>
+      indicando tu número de reserva. Te confirmaremos por escrito el importe que vas a recibir y la
+      fecha de emisión del reembolso.
+    </p>
+  </section>
+</LegalLayout>

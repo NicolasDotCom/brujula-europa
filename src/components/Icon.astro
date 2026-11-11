@@ -1,0 +1,55 @@
+---
+// Iconos de línea propios (trazo 1.5, 24×24). Decorativos: aria-hidden siempre.
+// El de WhatsApp es un <symbol> definido una sola vez en BaseLayout (se repite ~20 veces).
+
+const paths = {
+  chat: '<path d="M4.5 6.5a2.5 2.5 0 0 1 2.5-2.5h10a2.5 2.5 0 0 1 2.5 2.5v7a2.5 2.5 0 0 1-2.5 2.5h-6.2L6.5 19.5V16H7a2.5 2.5 0 0 1-2.5-2.5z"/><path d="M8.5 9h7M8.5 12h4.5"/>',
+  lock: '<rect x="4.75" y="10.25" width="14.5" height="10" rx="2.25"/><path d="M8.25 10.25V7.5a3.75 3.75 0 0 1 7.5 0v2.75M12 14.25v2"/>',
+  split: '<rect x="3.75" y="5.25" width="16.5" height="14.5" rx="2.25"/><path d="M3.75 9.75h16.5M8 3.5v3.5M16 3.5v3.5"/><path d="M7.5 14.5h2.5M10.75 14.5h2.5M14 14.5h2.5" stroke-width="2.25"/>',
+  shield: '<path d="M12 3.5 5 6.25v5.25c0 4.4 2.9 7.6 7 9 4.1-1.4 7-4.6 7-9V6.25z"/><path d="m8.75 12.1 2.25 2.25 4.25-4.6"/>',
+  person: '<circle cx="12" cy="8.5" r="3.75"/><path d="M4.75 20c.9-3.6 3.75-5.75 7.25-5.75s6.35 2.15 7.25 5.75"/>',
+  arrow: '<path d="M4.5 12h14M13 6.5l5.5 5.5-5.5 5.5"/>',
+  arrowUpRight: '<path d="M7 17 17 7M8.5 7H17v8.5"/>',
+  menu: '<path d="M4 8h16M4 16h16"/>',
+  close: '<path d="M6 6l12 12M18 6 6 18"/>',
+  check: '<path d="m5 12.5 4.5 4.5L19 7.5"/>',
+  car: '<path d="M5 16.75H3.75v-3.4a1.5 1.5 0 0 1 .83-1.34L6.25 11.2l1.5-3.25a2 2 0 0 1 1.82-1.2h4.86a2 2 0 0 1 1.82 1.2l1.5 3.25 1.67.81a1.5 1.5 0 0 1 .83 1.34v3.4H19"/><path d="M9.25 16.75h5.5M6.25 11.2h11.5"/><circle cx="7.1" cy="16.75" r="1.9"/><circle cx="16.9" cy="16.75" r="1.9"/>',
+  sailboat: '<path d="M12.5 3.5v12.25M12.5 4.75 18.25 15.75H12.5M10.75 7.25 6.25 15.75h4.5"/><path d="M3.5 18h17l-1.9 2.5H5.4z"/>',
+  pin: '<path d="M12 20.75s-6.25-5.4-6.25-10.5a6.25 6.25 0 0 1 12.5 0c0 5.1-6.25 10.5-6.25 10.5z"/><circle cx="12" cy="10.25" r="2.25"/>',
+  steering: '<circle cx="12" cy="12" r="8.25"/><circle cx="12" cy="12" r="2.25"/><path d="M12 14.25v6M9.85 11.35 4 9.75M14.15 11.35 20 9.75"/>',
+  key: '<circle cx="8" cy="15.5" r="3.75"/><path d="m10.65 12.85 8.1-8.1M15.75 7.75l2.5 2.5M13.5 10l1.75 1.75"/>',
+} as const;
+
+export type IconName = keyof typeof paths | 'whatsapp';
+
+interface Props {
+  name: IconName;
+  class?: string;
+  size?: number;
+}
+
+const { name, class: className, size = 20 } = Astro.props;
+---
+
+{
+  name === 'whatsapp' ? (
+    <svg class={className} width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">
+      <use href="#i-whatsapp" />
+    </svg>
+  ) : (
+    <svg
+      class={className}
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.5"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      aria-hidden="true"
+      focusable="false"
+      set:html={paths[name]}
+    />
+  )
+}

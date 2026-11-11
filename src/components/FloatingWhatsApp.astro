@@ -1,0 +1,18 @@
+---
+// Botón flotante discreto: esquina inferior derecha, accesible por teclado, con etiqueta visible
+// al pasar el ratón o al enfocarlo con el teclado.
+import { getWhatsAppUrl, whatsappMessages } from '../config/site';
+import Icon from './Icon.astro';
+---
+
+<a
+  class="fab"
+  href={getWhatsAppUrl(whatsappMessages.general)}
+  target="_blank"
+  rel="noopener"
+  aria-label="Hablar con un asesor por WhatsApp (abre WhatsApp)"
+  data-cta="fab"
+>
+  <span class="fab-label" aria-hidden="true">¿Hablamos?</span>
+  <Icon name="whatsapp" size={26} />
+</a>

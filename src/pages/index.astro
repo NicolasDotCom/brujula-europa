@@ -1,0 +1,33 @@
+---
+import ClosingCta from '../components/ClosingCta.astro';
+import DestinationsGrid from '../components/DestinationsGrid.astro';
+import Faq from '../components/Faq.astro';
+import Footer from '../components/Footer.astro';
+import Hero from '../components/Hero.astro';
+import HowItWorks from '../components/HowItWorks.astro';
+import Navbar from '../components/Navbar.astro';
+import Rentals from '../components/Rentals.astro';
+import Testimonials from '../components/Testimonials.astro';
+import TrustSection from '../components/TrustSection.astro';
+import { site } from '../config/site';
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Brújula Europa · Viajes a medida y alquiler de vehículos en Europa"
+  description={site.description}
+  structuredData
+>
+  <Navbar />
+  <main id="contenido">
+    <Hero />
+    <DestinationsGrid />
+    <Rentals />
+    <HowItWorks />
+    <Testimonials />
+    <TrustSection />
+    <Faq />
+    <ClosingCta />
+  </main>
+  <Footer />
+</BaseLayout>

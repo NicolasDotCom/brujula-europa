@@ -1,0 +1,51 @@
+---
+// Cierre: última llamada a la acción sobre fotografía (tarjeta superpuesta en escritorio).
+import { Picture } from 'astro:assets';
+import oportoImg from '../assets/photos/oporto.jpg';
+import { getWhatsAppUrl, site, whatsappMessages } from '../config/site';
+import Icon from './Icon.astro';
+---
+
+<section id="contacto" class="section pt-0" aria-labelledby="contacto-title">
+  <div class="wrap">
+    <div class="relative">
+      <div class="closing-media">
+        <Picture
+          src={oportoImg}
+          formats={['avif']}
+          fallbackFormat="webp"
+          widths={[640, 960, 1440, 2000]}
+          sizes="(min-width: 86rem) 79rem, 92vw"
+          alt="Barcos rabelo cargados de barricas en el río Duero, frente a las casas de colores de la Ribeira de Oporto"
+          quality={50}
+          loading="lazy"
+          decoding="async"
+          style="object-position: 50% 60%"
+        />
+      </div>
+
+      <div
+        class="relative -mt-12 mx-3 bg-paper p-7 sm:mx-6 sm:p-10 lg:absolute lg:inset-y-10 lg:left-10 lg:m-0 lg:flex lg:w-[30rem] lg:flex-col lg:justify-center lg:p-12"
+      >
+        <p class="eyebrow">Tu próximo viaje</p>
+        <h2 id="contacto-title" class="display-2 mt-5">Cuéntanos qué Europa quieres vivir</h2>
+        <p class="mt-5 text-ink-2">
+          Un viaje completo, una camper para el verano o un velero para una semana: escríbenos sin
+          compromiso y un asesor te responde con disponibilidad real y un precio cerrado en euros.
+        </p>
+        <a
+          class="btn btn-primary btn-lg mt-8 self-start"
+          href={getWhatsAppUrl(whatsappMessages.closing)}
+          target="_blank"
+          rel="noopener"
+          data-cta="closing"
+        >
+          <Icon name="whatsapp" size={20} />
+          Hablar con un asesor
+          <span class="sr-only">(abre WhatsApp)</span>
+        </a>
+        <p class="small mt-5 text-ink-2">{site.hours}</p>
+      </div>
+    </div>
+  </div>
+</section>

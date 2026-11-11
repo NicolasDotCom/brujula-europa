@@ -1,0 +1,46 @@
+---
+// FAQ sin JS: <details>/<summary> nativos con transición de altura en CSS (::details-content).
+import { faqs, getWhatsAppUrl, whatsappMessages } from '../config/site';
+import Icon from './Icon.astro';
+---
+
+<section id="faq" class="section" aria-labelledby="faq-title">
+  <div class="wrap grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-x-10">
+    <div class="lg:col-span-4">
+      <div class="lg:sticky lg:top-28">
+        <p class="eyebrow">Preguntas frecuentes</p>
+        <h2 id="faq-title" class="display-2 mt-5">Lo que nos preguntan antes de reservar</h2>
+        <p class="mt-6 max-w-sm text-ink-2">
+          ¿No encuentras tu respuesta? Escríbenos y te contesta una persona, no un bot.
+        </p>
+        <a
+          class="btn btn-outline mt-8"
+          href={getWhatsAppUrl(whatsappMessages.faq)}
+          target="_blank"
+          rel="noopener"
+          data-cta="faq"
+        >
+          <Icon name="whatsapp" size={18} />
+          Preguntar por WhatsApp
+          <span class="sr-only">(abre WhatsApp)</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="border-t border-line lg:col-span-7 lg:col-start-6">
+      {
+        faqs.map((faq) => (
+          <details class="faq-item">
+            <summary>
+              <span>{faq.question}</span>
+              <span class="faq-icon" aria-hidden="true" />
+            </summary>
+            <div class="faq-answer">
+              <p set:html={faq.answerHtml} />
+            </div>
+          </details>
+        ))
+      }
+    </div>
+  </div>
+</section>

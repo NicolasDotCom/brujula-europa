@@ -1,0 +1,11 @@
+# Cabeceras para Cloudflare Pages
+/*
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+
+# Recursos con hash en el nombre: caché inmutable de un año
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable

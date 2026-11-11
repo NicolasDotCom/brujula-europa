@@ -1,0 +1,18 @@
+# Dependencias y builds
+node_modules/
+dist/
+.astro/
+
+# Playwright
+test-results/
+playwright-report/
+blob-report/
+
+# Respaldo local de la versión anterior (no se despliega)
+_version-anterior/
+
+# Sistema
+.DS_Store
+Thumbs.db
+.env
+.env.*

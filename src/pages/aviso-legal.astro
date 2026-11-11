@@ -1,0 +1,113 @@
+---
+import { fullAddress, site } from '../config/site';
+import LegalLayout from '../layouts/LegalLayout.astro';
+
+const sections = [
+  { id: 'titular', title: '1. Datos del titular' },
+  { id: 'objeto', title: '2. Objeto del sitio web' },
+  { id: 'condiciones', title: '3. Condiciones de uso' },
+  { id: 'propiedad', title: '4. Propiedad intelectual e industrial' },
+  { id: 'enlaces', title: '5. Servicios y enlaces de terceros' },
+  { id: 'responsabilidad', title: '6. Responsabilidad' },
+  { id: 'legislacion', title: '7. Legislación y jurisdicción' },
+];
+---
+
+<LegalLayout
+  title="Aviso legal · Brújula Europa"
+  description="Datos identificativos del titular de Brújula Europa (razón social, NIF, domicilio y registro como agencia de viajes) y condiciones de uso del sitio."
+  heading="Aviso legal"
+  intro="Quién está detrás de Brújula Europa y en qué condiciones puedes usar este sitio web."
+  sections={sections}
+>
+  <section id="titular">
+    <h2>1. Datos del titular</h2>
+    <p>
+      En cumplimiento del artículo 10 de la Ley 34/2002, de 11 de julio, de Servicios de la Sociedad
+      de la Información y de Comercio Electrónico (LSSI-CE), te informamos de los datos del titular de
+      este sitio web:
+    </p>
+    <dl>
+      <div><dt>Titular</dt><dd>{site.legal.company}</dd></div>
+      <div><dt>Nombre comercial</dt><dd>{site.name}</dd></div>
+      <div><dt>NIF/CIF</dt><dd>{site.legal.nifCif}</dd></div>
+      <div><dt>Domicilio</dt><dd>{fullAddress}</dd></div>
+      <div><dt>Datos registrales</dt><dd>{site.legal.mercantileRegistry}</dd></div>
+      <div><dt>Agencia de viajes</dt><dd>Código de identificación {site.legal.travelAgencyLicense}</dd></div>
+      <div><dt>Garantía de insolvencia</dt><dd>{site.legal.insolvencyGuarantee}</dd></div>
+      <div><dt>Correo electrónico</dt><dd><a href={`mailto:${site.supportEmail}`}>{site.supportEmail}</a></dd></div>
+      <div><dt>Teléfono y WhatsApp</dt><dd>{site.phone}</dd></div>
+      <div><dt>Sitio web</dt><dd>{site.domain.replace('https://', '')}</dd></div>
+    </dl>
+  </section>
+
+  <section id="objeto">
+    <h2>2. Objeto del sitio web</h2>
+    <p>
+      Este sitio presenta los servicios de {site.name}: diseño y venta de viajes, experiencias y
+      rutas por Europa; alquiler de vehículos de carretera (coches, todoterrenos, campers y
+      minivans con conductor) y de embarcaciones (lanchas, veleros, catamaranes y yates, con o sin
+      patrón); y asesoría de viaje personalizada para personas residentes en el continente europeo.
+    </p>
+    <p>
+      La web es informativa: no se contrata ni se paga nada en ella. Las consultas se atienden por
+      WhatsApp y, cuando decides reservar, la contratación se formaliza mediante un enlace de pago
+      oficial de Stripe que te envía tu asesor, conforme a los
+      <a href="/terminos-y-condiciones">términos y condiciones</a>.
+    </p>
+  </section>
+
+  <section id="condiciones">
+    <h2>3. Condiciones de uso</h2>
+    <p>
+      El acceso a este sitio es gratuito y te atribuye la condición de usuario, lo que implica la
+      aceptación de este aviso legal. Te comprometes a hacer un uso lícito del sitio y de sus
+      contenidos, y a no realizar acciones que puedan dañar, inutilizar o sobrecargar la web o impedir
+      su normal funcionamiento.
+    </p>
+  </section>
+
+  <section id="propiedad">
+    <h2>4. Propiedad intelectual e industrial</h2>
+    <p>
+      Los textos, el diseño, el logotipo y el código de este sitio pertenecen a {site.legal.company}
+      o se usan con licencia. Queda prohibida su reproducción o comunicación pública sin autorización
+      expresa.
+    </p>
+    <p>
+      Las fotografías se publican bajo licencias Creative Commons y se atribuyen a sus autores en la
+      página de <a href="/creditos">créditos fotográficos</a>. Las marcas Stripe, Klarna, Apple Pay,
+      Google Pay, Visa, Mastercard, American Express y WhatsApp pertenecen a sus respectivos
+      titulares y se mencionan solo para identificar los métodos de pago y contacto disponibles.
+    </p>
+  </section>
+
+  <section id="enlaces">
+    <h2>5. Servicios y enlaces de terceros</h2>
+    <p>
+      Los botones de contacto abren WhatsApp, un servicio de WhatsApp Ireland Limited, y los pagos se
+      realizan en páginas de Stripe Payments Europe, Limited. Al utilizarlos, se aplican además sus
+      propias condiciones y políticas de privacidad. {site.name} no controla esos servicios y no
+      responde de su disponibilidad.
+    </p>
+  </section>
+
+  <section id="responsabilidad">
+    <h2>6. Responsabilidad</h2>
+    <p>
+      Cuidamos que la información de este sitio sea exacta y esté actualizada. Aun así, los precios
+      publicados son orientativos («desde») y la disponibilidad de cada viaje solo es firme cuando tu
+      asesor te la confirma por escrito antes del pago. No respondemos de los daños derivados de un
+      uso indebido del sitio ni de interrupciones técnicas ajenas a nuestro control.
+    </p>
+  </section>
+
+  <section id="legislacion">
+    <h2>7. Legislación y jurisdicción</h2>
+    <p>
+      Este aviso legal se rige por la legislación española. Si eres consumidor, cualquier
+      controversia podrá resolverse ante los juzgados y tribunales de tu domicilio, conforme a la
+      normativa europea y española de protección de las personas consumidoras.
+    </p>
+  </section>
+</LegalLayout>

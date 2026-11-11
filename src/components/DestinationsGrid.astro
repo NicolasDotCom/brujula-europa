@@ -1,0 +1,40 @@
+---
+// Catálogo editorial de las 6 experiencias definidas en src/config/site.ts.
+import { experiences } from '../config/site';
+import DestinationCard from './DestinationCard.astro';
+import Icon from './Icon.astro';
+---
+
+<section id="destinos" class="section border-t border-line" aria-labelledby="destinos-title">
+  <div class="wrap">
+    <div class="grid grid-cols-1 gap-6 lg:grid-cols-12 lg:items-end lg:gap-x-10">
+      <div class="lg:col-span-7">
+        <p class="eyebrow">Rutas destacadas</p>
+        <h2 id="destinos-title" class="display-2 mt-5">Seis maneras de vivir Europa, listas para hacerlas tuyas</h2>
+      </div>
+      <div class="lg:col-span-4 lg:col-start-9">
+        <p class="text-ink-2">
+          Son un punto de partida, no un paquete cerrado: tu asesor ajusta fechas, ritmo y
+          alojamientos a lo que buscas.
+        </p>
+        <p class="small mt-3 text-ink-2">
+          Precios orientativos por persona en habitación doble, impuestos incluidos. Vuelos no incluidos.
+        </p>
+      </div>
+    </div>
+
+    <p class="small mt-10 flex items-center gap-2 text-ink-2 sm:hidden" aria-hidden="true">
+      {experiences.length} rutas · desliza para verlas
+      <Icon name="arrow" size={16} />
+    </p>
+    <ul class="rail mt-5 sm:mt-14 sm:grid sm:grid-cols-2 sm:gap-x-8 sm:gap-y-16 lg:mt-20 lg:grid-cols-3" role="list">
+      {
+        experiences.map((exp) => (
+          <li>
+            <DestinationCard experience={exp} />
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>

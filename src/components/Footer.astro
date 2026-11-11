@@ -1,0 +1,88 @@
+---
+// Pie completo: identidad, contacto visible, datos fiscales y enlaces legales
+// (lo que revisa Stripe antes de activar cobros).
+import { fullAddress, getWhatsAppUrl, site, whatsappMessages } from '../config/site';
+import Logo from './Logo.astro';
+
+interface Props {
+  onHome?: boolean;
+}
+const { onHome = true } = Astro.props;
+const prefix = onHome ? '' : '/';
+
+const explore = [
+  { href: `${prefix}#destinos`, label: 'Destinos' },
+  { href: `${prefix}#alquiler`, label: 'Alquiler de vehículos' },
+  { href: `${prefix}#opiniones`, label: 'Opiniones' },
+  { href: `${prefix}#como-funciona`, label: 'Cómo funciona' },
+  { href: `${prefix}#garantia`, label: 'Garantía y pagos' },
+  { href: `${prefix}#faq`, label: 'Preguntas frecuentes' },
+];
+const legal = [
+  { href: '/aviso-legal', label: 'Aviso legal' },
+  { href: '/privacidad', label: 'Política de privacidad' },
+  { href: '/terminos-y-condiciones', label: 'Términos y condiciones' },
+  { href: '/politica-de-reembolsos', label: 'Política de reembolsos' },
+  { href: '/creditos', label: 'Créditos fotográficos' },
+];
+const year = new Date().getFullYear();
+const titleClass = 'font-sans text-[0.75rem] font-semibold uppercase tracking-[0.14em] text-ink-2';
+---
+
+<footer class="border-t border-line bg-paper-2 pb-10 pt-16 sm:pt-20">
+  <div class="wrap">
+    <div class="grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-12 lg:gap-x-10">
+      <div class="sm:col-span-2 lg:col-span-4">
+        <a href={onHome ? '#top' : '/'} class="inline-block no-underline">
+          <Logo />
+          <span class="sr-only">, ir al inicio</span>
+        </a>
+        <p class="mt-5 max-w-xs text-ink-2">
+          Viajes a medida por Europa con asesor personal. Consulta por WhatsApp y paga en euros con
+          Stripe.
+        </p>
+        <p class="small mt-5 text-ink-2">Agencia de viajes · {site.legal.travelAgencyLicense}</p>
+      </div>
+
+      <nav class="lg:col-span-2" aria-labelledby="footer-explore">
+        <h2 id="footer-explore" class={titleClass}>Explorar</h2>
+        <ul class="mt-5 space-y-3" role="list">
+          {explore.map((link) => <li><a class="link-plain" href={link.href}>{link.label}</a></li>)}
+        </ul>
+      </nav>
+
+      <div class="lg:col-span-3">
+        <h2 class={titleClass}>Contacto</h2>
+        <ul class="mt-5 space-y-3" role="list">
+          <li>
+            <a class="link-plain" href={getWhatsAppUrl(whatsappMessages.general)} target="_blank" rel="noopener" data-cta="footer">
+              WhatsApp {site.whatsappDisplay}<span class="sr-only"> (abre WhatsApp)</span>
+            </a>
+          </li>
+          <li><a class="link-plain" href={`mailto:${site.supportEmail}`}>{site.supportEmail}</a></li>
+          <li><a class="link-plain" href={`tel:${site.phone.replace(/\s/g, '')}`}>{site.phone}</a></li>
+          <li class="text-ink-2">{site.hours}</li>
+        </ul>
+      </div>
+
+      <nav class="lg:col-span-3" aria-labelledby="footer-legal">
+        <h2 id="footer-legal" class={titleClass}>Legal</h2>
+        <ul class="mt-5 space-y-3" role="list">
+          {legal.map((link) => <li><a class="link-plain" href={link.href}>{link.label}</a></li>)}
+          <li>
+            <button type="button" class="link-plain cursor-pointer text-left" data-cookie-settings>
+              Preferencias de cookies
+            </button>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="small mt-16 flex flex-col gap-3 border-t border-line pt-6 text-ink-2 lg:flex-row lg:justify-between lg:gap-10">
+      <p>
+        © {year} {site.legal.company} · NIF {site.legal.nifCif} · {fullAddress}
+      </p>
+      <p class="lg:text-right">Pagos procesados de forma segura por Stripe · Precios en euros (€)</p>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,36 @@
+---
+// Marcas de los métodos de pago aceptados, en sus colores oficiales para que se reconozcan
+// de un vistazo (trazados de Simple Icons, CC0; Mastercard dibujado con sus dos círculos).
+// SVG en línea: 0 peticiones extra.
+import { siAmericanexpress, siApplepay, siGooglepay, siKlarna, siStripe, siVisa } from 'simple-icons';
+
+const logos = [
+  { label: 'Visa', path: siVisa.path, color: '#1a1f71', size: 'h-[2.6rem]' },
+  { label: 'Mastercard', path: null, color: '', size: '' },
+  { label: 'American Express', path: siAmericanexpress.path, color: '#006fcf', size: 'h-[1.9rem]' },
+  { label: 'Apple Pay', path: siApplepay.path, color: '#000000', size: 'h-[2.6rem]' },
+  { label: 'Google Pay', path: siGooglepay.path, color: '#3c4043', size: 'h-[2.6rem]' },
+  { label: 'Klarna', path: siKlarna.path, color: '#0b051d', size: 'h-[1.3rem]', chip: 'bg-[#ffb3c7]' },
+  { label: 'Stripe', path: siStripe.path, color: '#635bff', size: 'h-[1.7rem]' },
+];
+---
+
+<ul class="flex flex-wrap gap-2" role="list" aria-label="Métodos de pago aceptados">
+  {
+    logos.map((logo) => (
+      <li class:list={['pay-chip', logo.chip]} title={logo.label}>
+        {logo.path ? (
+          <svg class:list={[logo.size, 'w-auto']} viewBox="0 0 24 24" fill={logo.color} role="img" aria-label={logo.label}>
+            <path d={logo.path} />
+          </svg>
+        ) : (
+          <svg class="h-[1.6rem] w-auto" viewBox="0 0 40 25" role="img" aria-label={logo.label}>
+            <circle cx="12.5" cy="12.5" r="12.5" fill="#eb001b" />
+            <circle cx="27.5" cy="12.5" r="12.5" fill="#f79e1b" />
+            <path d="M20 2.5a12.5 12.5 0 0 1 0 20 12.5 12.5 0 0 1 0-20z" fill="#ff5f00" />
+          </svg>
+        )}
+      </li>
+    ))
+  }
+</ul>
