@@ -12,6 +12,7 @@ const prefix = onHome ? '' : '/';
 
 const explore = [
   { href: `${prefix}#destinos`, label: 'Destinos' },
+  { href: `${prefix}#latinoamerica`, label: 'Desde Latinoamérica' },
   { href: `${prefix}#alquiler`, label: 'Alquiler de vehículos' },
   { href: `${prefix}#opiniones`, label: 'Opiniones' },
   { href: `${prefix}#como-funciona`, label: 'Cómo funciona' },
@@ -38,8 +39,8 @@ const titleClass = 'font-sans text-[0.75rem] font-semibold uppercase tracking-[0
           <span class="sr-only">, ir al inicio</span>
         </a>
         <p class="mt-5 max-w-xs text-ink-2">
-          Viajes a medida por Europa con asesor personal. Consulta por WhatsApp y paga en euros con
-          Stripe.
+          Viajes a medida por Europa y el mundo, viajes a Europa desde Latinoamérica y alquiler de
+          vehículos, con asesor personal. Consulta por WhatsApp y paga en euros con Stripe.
         </p>
         <p class="small mt-5 text-ink-2">Agencia de viajes · {site.legal.travelAgencyLicense}</p>
       </div>
@@ -82,7 +83,7 @@ const titleClass = 'font-sans text-[0.75rem] font-semibold uppercase tracking-[0
       <p>
         © {year} {site.legal.company} · NIF {site.legal.nifCif} · {fullAddress}
       </p>
-      <p class="lg:text-right">Pagos procesados de forma segura por Stripe · Precios en euros (€)</p>
+      <p class="lg:text-right">Pagos procesados de forma segura por Stripe, en euros (€)</p>
     </div>
   </div>
 </footer>

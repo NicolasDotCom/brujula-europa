@@ -48,7 +48,7 @@ export const photoCredits: PhotoCredit[] = [
   },
   {
     subject: 'Valle del Duero en Pinhão (Portugal)',
-    usedIn: 'Oporto y el valle del Duero',
+    usedIn: 'Portugal: Lisboa, Oporto y el valle del Duero',
     author: 'peuplier (Suiza romanda)',
     license: 'CC BY 2.0',
     licenseUrl: 'https://creativecommons.org/licenses/by/2.0/',
@@ -71,6 +71,40 @@ export const photoCredits: PhotoCredit[] = [
     licenseUrl: 'https://creativecommons.org/licenses/by/4.0/',
     sourceUrl:
       'https://commons.wikimedia.org/wiki/File:J%C3%B6kuls%C3%A1rl%C3%B3n_glacier_lagoon,_Iceland,_20240719_0935_2448.jpg',
+  },
+  {
+    subject: 'La Alhambra desde el mirador de San Nicolás, Granada (España)',
+    usedIn: 'Andalucía: Sevilla, Córdoba y Granada',
+    author: 'Diego Delso',
+    license: 'CC BY-SA 4.0',
+    licenseUrl: 'https://creativecommons.org/licenses/by-sa/4.0/',
+    sourceUrl: 'https://commons.wikimedia.org/wiki/File:Granada_-_View_from_Mirador_de_San_Nicol%C3%A1s_-_02.jpg',
+  },
+  {
+    subject: 'Gordes, Vaucluse (Francia)',
+    usedIn: 'Provenza y la Costa Azul',
+    author: 'kallerna',
+    license: 'CC BY-SA 4.0',
+    licenseUrl: 'https://creativecommons.org/licenses/by-sa/4.0/',
+    sourceUrl: 'https://commons.wikimedia.org/wiki/File:Gordes_view_1.jpg',
+  },
+  {
+    subject: 'Ópera de Sídney y Harbour Bridge (Australia)',
+    usedIn: 'Australia: Sídney, la Gran Barrera y Uluru',
+    author: 'DXR',
+    license: 'CC BY-SA 4.0',
+    licenseUrl: 'https://creativecommons.org/licenses/by-sa/4.0/',
+    sourceUrl:
+      'https://commons.wikimedia.org/wiki/File:Sydney_Opera_House_and_Harbour_Bridge,_southeast_view_20230224_1.jpg',
+  },
+  {
+    subject: 'Yasaka-dori y la pagoda de Yasaka, Kioto (Japón)',
+    usedIn: 'Japón esencial: Tokio, Hakone y Kioto',
+    author: 'Basile Morin',
+    license: 'CC BY-SA 4.0',
+    licenseUrl: 'https://creativecommons.org/licenses/by-sa/4.0/',
+    sourceUrl:
+      'https://commons.wikimedia.org/wiki/File:Yasaka-dori_early_morning_with_street_lanterns_and_the_Tower_of_Yasaka_(Hokan-ji_Temple),_Kyoto,_Japan.jpg',
   },
   {
     subject: 'Paso del Stelvio desde Bormio (Italia)',

@@ -1,16 +1,30 @@
 ---
-// Catálogo editorial de las 6 experiencias definidas en src/config/site.ts.
+// Catálogo editorial en dos bloques: Europa (2 tarjetas grandes + 6) y Más allá de Europa (2 grandes).
+// En móvil, cada bloque es un carrusel con scroll-snap (sin JS).
 import { experiences } from '../config/site';
 import DestinationCard from './DestinationCard.astro';
 import Icon from './Icon.astro';
+
+const groups = [
+  {
+    id: 'europa',
+    title: 'Europa',
+    note: `${experiences.filter((e) => e.group === 'europa').length} rutas`,
+  },
+  {
+    id: 'mundo',
+    title: 'Más allá de Europa',
+    note: '¿Tailandia, Vietnam o Bali? También los organizamos.',
+  },
+] as const;
 ---
 
 <section id="destinos" class="section border-t border-line" aria-labelledby="destinos-title">
   <div class="wrap">
     <div class="grid grid-cols-1 gap-6 lg:grid-cols-12 lg:items-end lg:gap-x-10">
       <div class="lg:col-span-7">
-        <p class="eyebrow">Rutas destacadas</p>
-        <h2 id="destinos-title" class="display-2 mt-5">Seis maneras de vivir Europa, listas para hacerlas tuyas</h2>
+        <p class="eyebrow">Destinos</p>
+        <h2 id="destinos-title" class="display-2 mt-5">Europa y más allá, con rutas listas para hacerlas tuyas</h2>
       </div>
       <div class="lg:col-span-4 lg:col-start-9">
         <p class="text-ink-2">
@@ -18,23 +32,44 @@ import Icon from './Icon.astro';
           alojamientos a lo que buscas.
         </p>
         <p class="small mt-3 text-ink-2">
-          Precios orientativos por persona en habitación doble, impuestos incluidos. Vuelos no incluidos.
+          Tu asesor te envía por WhatsApp un presupuesto cerrado según fechas, temporada y número de
+          viajeros. Vuelos internacionales no incluidos.
         </p>
       </div>
     </div>
 
-    <p class="small mt-10 flex items-center gap-2 text-ink-2 sm:hidden" aria-hidden="true">
-      {experiences.length} rutas · desliza para verlas
-      <Icon name="arrow" size={16} />
-    </p>
-    <ul class="rail mt-5 sm:mt-14 sm:grid sm:grid-cols-2 sm:gap-x-8 sm:gap-y-16 lg:mt-20 lg:grid-cols-3" role="list">
-      {
-        experiences.map((exp) => (
-          <li>
-            <DestinationCard experience={exp} />
-          </li>
-        ))
-      }
-    </ul>
+    {
+      groups.map((group) => {
+        const items = experiences.filter((e) => e.group === group.id);
+        return (
+          <div class="mt-16 lg:mt-24" data-destination-group={group.id}>
+            <div class="flex flex-col gap-1 border-b border-line pb-4 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6">
+              <h3 id={`grupo-${group.id}`} class="font-serif text-[1.75rem] leading-tight tracking-[-0.015em]">
+                {group.title}
+              </h3>
+              <p class="small text-ink-2">{group.note}</p>
+            </div>
+
+            {items.length > 1 && (
+              <p class="small mt-6 flex items-center gap-2 text-ink-2 sm:hidden" aria-hidden="true">
+                Desliza para ver las {items.length}
+                <Icon name="arrow" size={16} />
+              </p>
+            )}
+            <ul
+              class="rail mt-4 sm:mt-10 sm:grid sm:grid-cols-2 sm:gap-x-8 sm:gap-y-16 lg:grid-cols-6"
+              role="list"
+              aria-labelledby={`grupo-${group.id}`}
+            >
+              {items.map((exp) => (
+                <li class:list={[exp.featured ? 'lg:col-span-3' : 'lg:col-span-2']}>
+                  <DestinationCard experience={exp} featured={exp.featured} />
+                </li>
+              ))}
+            </ul>
+          </div>
+        );
+      })
+    }
   </div>
 </section>

@@ -14,9 +14,10 @@ const prefix = onHome ? '' : '/';
 
 const links = [
   { href: `${prefix}#destinos`, label: 'Destinos' },
+  { href: `${prefix}#latinoamerica`, label: 'Desde Latinoamérica' },
   { href: `${prefix}#alquiler`, label: 'Alquiler' },
-  { href: `${prefix}#como-funciona`, label: 'Cómo funciona' },
-  { href: `${prefix}#garantia`, label: 'Garantía' },
+  { href: `${prefix}#como-funciona`, label: 'Cómo funciona', wide: true },
+  { href: `${prefix}#garantia`, label: 'Garantía', wide: true },
   { href: `${prefix}#faq`, label: 'Preguntas' },
 ];
 const whatsappHref = getWhatsAppUrl(whatsappMessages.general);
@@ -32,7 +33,7 @@ const whatsappHref = getWhatsAppUrl(whatsappMessages.general);
     <nav aria-label="Principal" class="hidden lg:block">
       <ul class="flex items-center gap-7 xl:gap-9" role="list">
         {links.map((link) => (
-          <li>
+          <li class:list={[link.wide && 'hidden xl:list-item']}>
             <a class="nav-link" href={link.href}>{link.label}</a>
           </li>
         ))}

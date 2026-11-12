@@ -5,6 +5,7 @@ import Faq from '../components/Faq.astro';
 import Footer from '../components/Footer.astro';
 import Hero from '../components/Hero.astro';
 import HowItWorks from '../components/HowItWorks.astro';
+import LatamSection from '../components/LatamSection.astro';
 import Navbar from '../components/Navbar.astro';
 import Rentals from '../components/Rentals.astro';
 import Testimonials from '../components/Testimonials.astro';
@@ -14,7 +15,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
 <BaseLayout
-  title="Brújula Europa · Viajes a medida y alquiler de vehículos en Europa"
+  title="Victoria Tours · Viajes a medida por Europa y el mundo"
   description={site.description}
   structuredData
 >
@@ -22,6 +23,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   <main id="contenido">
     <Hero />
     <DestinationsGrid />
+    <LatamSection />
     <Rentals />
     <HowItWorks />
     <Testimonials />

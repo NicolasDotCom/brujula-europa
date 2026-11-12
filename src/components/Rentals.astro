@@ -1,12 +1,12 @@
 ---
-// Alquiler de vehículos de tierra y agua: dos «cartas» editoriales con precio desde/día y un
-// CTA de WhatsApp por vehículo, con el nombre exacto codificado en el mensaje.
+// Alquiler de vehículos de tierra y agua: dos «cartas» editoriales con un CTA de WhatsApp por
+// vehículo, con el nombre exacto codificado en el mensaje (el precio lo da el asesor).
 import { Picture } from 'astro:assets';
-import { formatPrice, getWhatsAppUrl, rentalCategories, rentalPerks, whatsappMessages } from '../config/site';
+import { getWhatsAppUrl, rentalCategories, rentalPerks, whatsappMessages } from '../config/site';
 import Icon from './Icon.astro';
 ---
 
-<section id="alquiler" class="section bg-paper-2" aria-labelledby="alquiler-title">
+<section id="alquiler" class="section" aria-labelledby="alquiler-title">
   <div class="wrap">
     <div class="grid grid-cols-1 gap-6 lg:grid-cols-12 lg:items-end lg:gap-x-10">
       <div class="lg:col-span-7">
@@ -18,7 +18,7 @@ import Icon from './Icon.astro';
           Coches, campers, veleros y yates en toda Europa. Los añadimos a tu viaje o los reservas por
           separado, con el mismo asesor y pagando en euros con Stripe.
         </p>
-        <p class="small mt-3 text-ink-2">Precios orientativos por día, según temporada y disponibilidad.</p>
+        <p class="small mt-3 text-ink-2">Tu asesor te confirma disponibilidad y precio por WhatsApp, según fechas y temporada.</p>
       </div>
     </div>
 
@@ -57,11 +57,6 @@ import Icon from './Icon.astro';
                     <p class="small mt-1 text-ink-2">{opt.detail}</p>
                   </div>
                   <div class="rental-side">
-                    <p class="flex items-baseline gap-1.5 whitespace-nowrap">
-                      <span class="small text-ink-2">Desde</span>
-                      <span class="rental-price">{formatPrice(opt.priceFrom)}</span>
-                      <span class="small text-ink-2">/día</span>
-                    </p>
                     <a
                       class="btn btn-outline btn-sm"
                       href={getWhatsAppUrl(opt.whatsappText)}

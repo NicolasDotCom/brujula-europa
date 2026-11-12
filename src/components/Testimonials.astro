@@ -1,12 +1,12 @@
 ---
 // Opiniones de clientes. Las de ejemplo (example: true) avisan en cada build hasta sustituirlas.
 // No se añaden datos estructurados de reseñas (Review/AggregateRating) a propósito.
-import { testimonials } from '../config/site';
+import { site, testimonials } from '../config/site';
 
 const pending = testimonials.filter((t) => t.example).length;
 if (pending > 0) {
   console.warn(
-    `\n⚠️  [Brújula Europa] ${pending} opiniones son de EJEMPLO. Sustitúyelas por opiniones reales en src/config/site.ts (testimonials) antes de publicar: las reseñas inventadas están prohibidas en la UE.\n`,
+    `\n⚠️  [${site.name}] ${pending} opiniones son de EJEMPLO. Sustitúyelas por opiniones reales en src/config/site.ts (testimonials) antes de publicar: las reseñas inventadas están prohibidas en la UE.\n`,
   );
 }
 

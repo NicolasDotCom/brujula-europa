@@ -61,7 +61,8 @@
 
   h1,
   h2,
-  h3 {
+  h3,
+  h4 {
     font-family: var(--font-serif);
     font-weight: 400;
     text-wrap: balance;
@@ -296,6 +297,45 @@
     }
   }
 
+  /* ---------- Logotipo ---------- */
+  .logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    color: var(--color-ink);
+  }
+
+  .logo-mark {
+    flex: none;
+    inline-size: 2.5rem;
+    block-size: 2.5rem;
+    color: var(--color-navy);
+  }
+
+  .logo-word {
+    display: inline-flex;
+    flex-direction: column;
+    line-height: 1;
+  }
+
+  .logo-name {
+    margin-inline-end: -0.09em;
+    font-family: var(--font-serif);
+    font-size: 1.375rem;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+  }
+
+  .logo-tag {
+    display: flex;
+    justify-content: space-between;
+    margin-block-start: 0.35rem;
+    font-size: 0.625rem;
+    font-weight: 600;
+    line-height: 1;
+    color: var(--color-navy);
+  }
+
   /* ---------- Cabecera ---------- */
   .site-header {
     position: sticky;
@@ -514,12 +554,89 @@
     transform: rotate(-45deg);
   }
 
-  .price {
-    font-family: var(--font-serif);
-    font-size: 1.875rem;
-    line-height: 1;
-    letter-spacing: -0.02em;
-    font-variant-numeric: lining-nums;
+  .card-foot {
+    margin-block-start: auto;
+    padding-block-start: 1.25rem;
+    border-block-start: 1px solid var(--color-line);
+  }
+
+  .card-cta {
+    inline-size: 100%;
+  }
+
+  /* Tarjeta grande: foto panorámica, titular mayor y CTA a su medida. */
+  @media (min-width: 64rem) {
+    .card-featured .card-media {
+      aspect-ratio: 16 / 9;
+    }
+
+    .card-featured .card-title {
+      font-size: clamp(1.75rem, 1.2rem + 0.8vw, 2.125rem);
+    }
+
+    .card-featured .card-cta {
+      inline-size: auto;
+    }
+  }
+
+  /* ---------- Desde Latinoamérica ---------- */
+  .latam-board {
+    padding-inline: 1.25rem;
+    border: 1px solid var(--color-line);
+    border-radius: 4px;
+    background-color: var(--color-paper-3);
+  }
+
+  .latam-board-head {
+    display: none;
+  }
+
+  .latam-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.875rem;
+    padding-block: 1.5rem;
+  }
+
+  .latam-row + .latam-row {
+    border-block-start: 1px solid var(--color-line);
+  }
+
+  .latam-side {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  @media (min-width: 48rem) {
+    .latam-board {
+      padding-inline: 1.75rem;
+    }
+
+    .latam-board-head,
+    .latam-row {
+      grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.3fr) auto;
+      align-items: center;
+      gap: 1.75rem;
+    }
+
+    .latam-board-head {
+      display: grid;
+      padding-block: 1.125rem 0.875rem;
+      border-block-end: 1px solid var(--color-line);
+      font-size: 0.6875rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--color-ink-2);
+    }
+
+    .latam-side {
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0.75rem;
+    }
   }
 
   /* ---------- Alquiler ---------- */
@@ -528,7 +645,7 @@
     overflow: hidden;
     border-radius: 4px;
     aspect-ratio: 4 / 3;
-    background-color: var(--color-paper);
+    background-color: var(--color-paper-2);
   }
 
   @media (min-width: 40rem) {
@@ -568,14 +685,6 @@
       justify-content: flex-end;
       gap: 1.5rem;
     }
-  }
-
-  .rental-price {
-    font-family: var(--font-serif);
-    font-size: 1.5rem;
-    line-height: 1;
-    letter-spacing: -0.02em;
-    font-variant-numeric: lining-nums;
   }
 
   /* ---------- Opiniones ---------- */

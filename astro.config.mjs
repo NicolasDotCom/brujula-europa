@@ -8,7 +8,7 @@ import tailwindcss from '@tailwindcss/vite';
 // - Fuentes autoalojadas (RGPD: ninguna petición a Google Fonts) con fallbacks métricos
 //   generados por Astro para evitar saltos de maquetación (CLS) al cargar la tipografía.
 export default defineConfig({
-  site: 'https://brujulaeuropa.com',
+  site: 'https://victoriatours.com', // ⚠️ RELLENAR: dominio definitivo (igual que site.domain)
   output: 'static',
   trailingSlash: 'never',
   // La compresión de Astro elimina los espacios con salto de línea antes de enlaces en línea

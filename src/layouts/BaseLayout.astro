@@ -5,7 +5,7 @@ import '../styles/global.css';
 import { Font, getImage } from 'astro:assets';
 import CookieBanner from '../components/CookieBanner.astro';
 import FloatingWhatsApp from '../components/FloatingWhatsApp.astro';
-import { experiences, lowestPrice, rentalCategories, site } from '../config/site';
+import { experiences, latamTrips, rentalCategories, site } from '../config/site';
 import ogSource from '../assets/photos/lofoten.jpg';
 import { siWhatsapp } from 'simple-icons';
 
@@ -36,8 +36,10 @@ const jsonLd = {
   taxID: site.legal.nifCif,
   currenciesAccepted: 'EUR',
   paymentAccepted: 'Tarjeta de crédito o débito, Apple Pay, Google Pay, Klarna',
-  priceRange: `Desde ${lowestPrice} €`,
-  areaServed: { '@type': 'Place', name: 'Europa' },
+  areaServed: ['Europa', 'Australia', 'Asia', 'Brasil', 'Colombia', 'Argentina', 'Chile', 'Perú'].map((name) => ({
+    '@type': 'Place',
+    name,
+  })),
   address: {
     '@type': 'PostalAddress',
     streetAddress: site.legal.address.street,
@@ -53,23 +55,21 @@ const jsonLd = {
     closes: '19:00',
   },
   makesOffer: [
+    // Sin precios publicados: el presupuesto lo envía el asesor por WhatsApp.
     ...experiences.map((exp) => ({
       '@type': 'Offer',
-      name: exp.title,
-      price: exp.priceFrom,
-      priceCurrency: 'EUR',
+      itemOffered: { '@type': 'TouristTrip', name: exp.title, description: exp.highlight },
       url: `${site.domain}/#destinos`,
+    })),
+    ...latamTrips.map((trip) => ({
+      '@type': 'Offer',
+      itemOffered: { '@type': 'TouristTrip', name: `Desde ${trip.country}: ${trip.route} (con vuelo)` },
+      url: `${site.domain}/#latinoamerica`,
     })),
     ...rentalCategories.flatMap((cat) =>
       cat.options.map((opt) => ({
         '@type': 'Offer',
-        name: `Alquiler: ${opt.name}`,
-        priceSpecification: {
-          '@type': 'UnitPriceSpecification',
-          price: opt.priceFrom,
-          priceCurrency: 'EUR',
-          unitText: 'día',
-        },
+        itemOffered: { '@type': 'Service', name: `Alquiler: ${opt.name}`, description: opt.detail },
         url: `${site.domain}/#alquiler`,
       })),
     ),
@@ -113,6 +113,21 @@ const jsonLd = {
   <body>
     <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
       <symbol id="i-whatsapp" viewBox="0 0 24 24"><path d={siWhatsapp.path} /></symbol>
+      <symbol id="i-logo" viewBox="0 0 32 32">
+        <defs><path id="vt-leaf" d="M0 0C1.45-1.51 1.45-3.89 0-5.4-1.45-3.89-1.45-1.51 0 0Z" /></defs>
+        <path d="M16 27.6 8 6.77M16 27.6l8-20.83" fill="none" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" />
+        <g fill="currentColor">
+          <use href="#vt-leaf" transform="translate(14.28 23.12) rotate(-61)" />
+          <use href="#vt-leaf" transform="translate(12.22 17.74) rotate(-61)" />
+          <use href="#vt-leaf" transform="translate(10.15 12.37) rotate(-61)" />
+          <use href="#vt-leaf" transform="translate(8 6.77) rotate(-21) scale(.92)" />
+          <use href="#vt-leaf" transform="translate(17.72 23.12) rotate(61)" />
+          <use href="#vt-leaf" transform="translate(19.78 17.74) rotate(61)" />
+          <use href="#vt-leaf" transform="translate(21.85 12.37) rotate(61)" />
+          <use href="#vt-leaf" transform="translate(24 6.77) rotate(21) scale(.92)" />
+          <path d="M16 5.54l.77 2.3 2.3.77-2.3.77L16 11.66l-.77-2.3-2.3-.77 2.3-.77z" />
+        </g>
+      </symbol>
     </svg>
     <a class="skip-link" href="#contenido">Saltar al contenido</a>
     <slot />
@@ -121,7 +136,7 @@ const jsonLd = {
 
     <script is:inline>
       (function () {
-        var KEY = 'be-cookie-consent';
+        var KEY = 'vt-cookie-consent';
         var banner = document.getElementById('cookie-banner');
         if (!banner) return;
         var stored = null;
@@ -139,7 +154,7 @@ const jsonLd = {
             document.documentElement.dataset.cookieConsent = value;
             banner.hidden = true;
             // Punto de enganche para cargar analítica SOLO si value === 'all'.
-            document.dispatchEvent(new CustomEvent('be:consent', { detail: value }));
+            document.dispatchEvent(new CustomEvent('vt:consent', { detail: value }));
             return;
           }
           if (t.closest('[data-cookie-settings]')) {

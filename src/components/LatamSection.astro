@@ -1,0 +1,96 @@
+---
+// Viajes a Europa desde Latinoamérica: titular y garantías a la izquierda, «panel de salidas» a la
+// derecha con una fila por país (ruta, vuelo y CTA de WhatsApp codificado; el precio lo da el asesor).
+import { getWhatsAppUrl, latamPerks, latamTrips, whatsappMessages } from '../config/site';
+import Icon from './Icon.astro';
+---
+
+<section id="latinoamerica" class="section bg-paper-2" aria-labelledby="latam-title">
+  <div class="wrap grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-x-10">
+    <div class="lg:col-span-5 xl:col-span-4">
+      <div class="lg:sticky lg:top-28">
+        <p class="eyebrow">Desde Latinoamérica</p>
+        <h2 id="latam-title" class="display-2 mt-5">Tu viaje a Europa, con el vuelo incluido</h2>
+        <p class="mt-6 text-ink-2">
+          Salimos contigo desde Brasil, Colombia, Argentina, Chile o Perú. Buscamos el vuelo que mejor
+          te encaja, armamos la ruta por Europa y te acompañamos por WhatsApp desde que haces la maleta
+          hasta que vuelves a casa.
+        </p>
+
+        <ul class="mt-9 space-y-5 border-t border-line pt-7" role="list">
+          {
+            latamPerks.map((perk) => (
+              <li class="flex items-start gap-3">
+                <Icon name={perk.icon} size={22} class="mt-0.5 flex-none text-navy" />
+                <span class="small text-ink">{perk.text}</span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+
+    <div class="lg:col-span-7 xl:col-span-7 xl:col-start-6">
+      <div class="latam-board">
+        <div class="latam-board-head" aria-hidden="true">
+          <span>Salida</span>
+          <span>Ruta por Europa</span>
+          <span></span>
+        </div>
+        <ul role="list">
+          {
+            latamTrips.map((trip) => (
+              <li class="latam-row" data-latam={trip.id}>
+                <div class="min-w-0">
+                  <h3 class="font-serif text-[1.625rem] leading-none tracking-[-0.015em]">{trip.country}</h3>
+                  <p class="small mt-2 text-ink-2">Desde {trip.cities}</p>
+                </div>
+                <div class="min-w-0">
+                  <p class="font-semibold leading-snug" data-latam-route>{trip.route}</p>
+                  <p class="small mt-1.5 text-ink-2">
+                    <span class="whitespace-nowrap" data-latam-duration>{trip.duration}</span>
+                    <span aria-hidden="true"> · </span>
+                    <Icon name="plane" size={15} class="inline-block align-[-0.15em]" />
+                    Directo a {trip.gateway}, <span class="whitespace-nowrap">{trip.flightTime}</span>
+                  </p>
+                </div>
+                <div class="latam-side">
+                  <a
+                    class="btn btn-outline btn-sm"
+                    href={getWhatsAppUrl(trip.whatsappText)}
+                    target="_blank"
+                    rel="noopener"
+                    data-cta="latam-trip"
+                  >
+                    <Icon name="whatsapp" size={16} />
+                    Consultar
+                    <span class="sr-only">el viaje desde {trip.country} por WhatsApp (abre WhatsApp)</span>
+                  </a>
+                </div>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+      <p class="small mt-5 text-ink-2">
+        El vuelo de ida y vuelta en clase turista va incluido. Tu asesor te envía por WhatsApp un
+        presupuesto cerrado según tus fechas y el número de viajeros.
+      </p>
+
+      <div class="mt-10 flex flex-col items-start gap-4 sm:flex-row sm:items-center">
+        <a
+          class="btn btn-primary shrink-0"
+          href={getWhatsAppUrl(whatsappMessages.latam)}
+          target="_blank"
+          rel="noopener"
+          data-cta="latam"
+        >
+          <Icon name="whatsapp" size={18} />
+          Organizar mi viaje a Europa
+          <span class="sr-only">(abre WhatsApp)</span>
+        </a>
+        <p class="small text-ink-2">¿Sales desde México, Ecuador, Uruguay u otro país? También te lo organizamos.</p>
+      </div>
+    </div>
+  </div>
+</section>

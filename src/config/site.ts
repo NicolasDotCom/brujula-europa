@@ -1,5 +1,5 @@
 /**
- * src/config/site.ts — Configuración central de Brújula Europa.
+ * src/config/site.ts — Configuración central de Victoria Tours.
  *
  * Edita SOLO este archivo para cambiar datos de contacto, datos fiscales, catálogo y FAQ.
  * Todo lo marcado con «⚠️ RELLENAR» debe sustituirse por datos reales antes de publicar
@@ -10,6 +10,10 @@ import lofotenImg from '../assets/photos/lofoten.jpg';
 import toscanaImg from '../assets/photos/toscana.jpg';
 import cicladasImg from '../assets/photos/cicladas.jpg';
 import dueroImg from '../assets/photos/duero.jpg';
+import andaluciaImg from '../assets/photos/andalucia.jpg';
+import provenzaImg from '../assets/photos/provenza.jpg';
+import australiaImg from '../assets/photos/australia.jpg';
+import japonImg from '../assets/photos/japon.jpg';
 import suizaImg from '../assets/photos/suiza.jpg';
 import islandiaImg from '../assets/photos/islandia.jpg';
 import carreteraImg from '../assets/photos/alquiler-carretera.jpg';
@@ -20,17 +24,18 @@ import marImg from '../assets/photos/alquiler-mar.jpg';
 /* ------------------------------------------------------------------ */
 
 export const site = {
-  name: 'Brújula Europa',
-  domain: 'https://brujulaeuropa.com',
+  name: 'Victoria Tours',
+  /** ⚠️ RELLENAR — Dominio definitivo (cámbialo también en astro.config.mjs → site). */
+  domain: 'https://victoriatours.com',
   description:
-    'Viajes a medida y alquiler de coches, campers, veleros y yates por Europa, con asesor personal. Consulta por WhatsApp y paga en euros con un enlace seguro de Stripe: tarjeta, Apple Pay, Google Pay o a plazos con Klarna.',
+    'Viajes a medida por Europa, Australia y Asia, viajes a Europa desde Latinoamérica y alquiler de coches, campers y barcos. Asesor personal por WhatsApp y pago seguro en euros con Stripe.',
 
   /** ⚠️ RELLENAR — WhatsApp del asesor en formato internacional, solo dígitos (sin +, espacios ni guiones). */
   whatsappPhone: '34600000000',
   /** ⚠️ RELLENAR — El mismo número, tal y como se muestra al usuario. */
   whatsappDisplay: '+34 600 000 000',
   /** ⚠️ RELLENAR — Correo de atención al cliente. */
-  supportEmail: 'hola@brujulaeuropa.com',
+  supportEmail: 'hola@victoriatours.com',
   /** ⚠️ RELLENAR — Teléfono de atención. */
   phone: '+34 600 000 000',
   /** Horario de atención humana. */
@@ -38,7 +43,7 @@ export const site = {
 
   legal: {
     /** ⚠️ RELLENAR — Razón social exacta, tal y como figura en Stripe. */
-    company: 'Brújula Europa S.L.',
+    company: 'Victoria Tours S.L.',
     /** ⚠️ RELLENAR — NIF/CIF. */
     nifCif: 'B00000000',
     /** ⚠️ RELLENAR — Domicilio fiscal. */
@@ -56,7 +61,7 @@ export const site = {
     /** ⚠️ RELLENAR — Garantía de insolvencia exigida por la Directiva (UE) 2015/2302. */
     insolvencyGuarantee: '[Entidad aseguradora], póliza n.º 0000000',
     /** Fecha de la última revisión de los textos legales. */
-    lastUpdated: '10 de noviembre de 2026',
+    lastUpdated: '11 de noviembre de 2026',
   },
 } as const;
 
@@ -73,27 +78,23 @@ export function getWhatsAppUrl(customMessage: string): string {
 
 /** Mensajes prellenados por punto de contacto: el asesor sabe desde dónde escribe cada cliente. */
 export const whatsappMessages = {
-  general: 'Hola, estoy en Europa y me gustaría hablar con un asesor de Brújula Europa para organizar un viaje.',
-  hero: 'Hola, estoy en Europa y quiero organizar un viaje a medida con Brújula Europa. ¿Me ayudas?',
-  faq: 'Hola, tengo una pregunta antes de reservar con Brújula Europa:',
-  closing: 'Hola, quiero diseñar un viaje a medida por Europa. Te cuento lo que tengo en mente:',
-  rentals: 'Hola, estoy en Europa y quiero consultar el alquiler de un vehículo. Destino, fechas y número de personas:',
+  general: `Hola, me gustaría hablar con un asesor de ${site.name} para organizar un viaje.`,
+  hero: `Hola, quiero organizar un viaje a medida con ${site.name}. ¿Me ayudas?`,
+  faq: `Hola, tengo una pregunta antes de reservar con ${site.name}:`,
+  closing: 'Hola, quiero diseñar un viaje a medida. Te cuento lo que tengo en mente:',
+  rentals: 'Hola, quiero consultar el alquiler de un vehículo en Europa. Destino, fechas y número de personas:',
+  latam: 'Hola, escribo desde Latinoamérica y quiero organizar un viaje a Europa. Salgo desde (país y ciudad):',
 } as const;
 
 /* ------------------------------------------------------------------ */
-/* Precios                                                             */
+/* Mensajes por experiencia                                            */
 /* ------------------------------------------------------------------ */
 
-const euroNumber = new Intl.NumberFormat('es-ES', { maximumFractionDigits: 0, useGrouping: 'always' });
+// La web no publica precios: el asesor envía el presupuesto por WhatsApp.
 
-/** 1690 → «1.690 €» (con espacio de no separación para que el € no salte de línea). */
-export function formatPrice(value: number, separator = ' '): string {
-  return `${euroNumber.format(value)}${separator}€`;
-}
-
-/** Mensaje de WhatsApp de cada experiencia: incluye el nombre exacto y el precio desde. */
-export function experienceMessage(title: string, priceFrom: number): string {
-  return `Hola, estoy en Europa y quiero consultar disponibilidad y tarifa para la experiencia: ${title} (Desde ${formatPrice(priceFrom, ' ')})`;
+/** Mensaje de WhatsApp de cada experiencia: incluye el nombre exacto de la ruta. */
+export function experienceMessage(title: string): string {
+  return `Hola, estoy en Europa y quiero consultar disponibilidad y tarifa para la experiencia: ${title}`;
 }
 
 /* ------------------------------------------------------------------ */
@@ -102,6 +103,10 @@ export function experienceMessage(title: string, priceFrom: number): string {
 
 export interface Experience {
   id: string;
+  /** Bloque del catálogo: rutas por Europa o destinos lejanos. */
+  group: 'europa' | 'mundo';
+  /** Tarjeta grande (las dos primeras de Europa y las de fuera de Europa). */
+  featured?: boolean;
   title: string;
   region: string;
   duration: string;
@@ -109,8 +114,6 @@ export interface Experience {
   highlight: string;
   /** Qué incluye (3 puntos, cortos). */
   includes: [string, string, string];
-  /** Precio orientativo por persona en euros. */
-  priceFrom: number;
   image: ImageMetadata;
   imageAlt: string;
   /** Encuadre de la foto en la tarjeta (valor CSS object-position). */
@@ -118,108 +121,243 @@ export interface Experience {
   whatsappText: string;
 }
 
-/** Crea una experiencia y genera su mensaje de WhatsApp a partir del título y el precio. */
+/** Crea una experiencia y genera su mensaje de WhatsApp a partir del título. */
 function experience(data: Omit<Experience, 'whatsappText'> & { whatsappText?: string }): Experience {
-  return { ...data, whatsappText: data.whatsappText ?? experienceMessage(data.title, data.priceFrom) };
+  return { ...data, whatsappText: data.whatsappText ?? experienceMessage(data.title) };
 }
 
-/**
- * Catálogo destacado. Los precios son orientativos («desde», por persona en habitación doble,
- * sin vuelos internacionales): ajústalos a tus tarifas reales.
- */
+/** Catálogo destacado, en el orden en que se muestra (sin precios: los da el asesor). */
 export const experiences: Experience[] = [
+  /* --- Europa --- */
   experience({
-    id: 'lofoten',
-    title: 'Lofoten y el sol de medianoche',
-    region: 'Noruega',
+    id: 'andalucia',
+    group: 'europa',
+    featured: true,
+    title: 'Andalucía: Sevilla, Córdoba y Granada',
+    region: 'España',
     duration: '7 días',
-    highlight: 'Pueblos de pescadores entre picos que caen al mar, con luz casi infinita en verano.',
-    includes: ['Rorbuer, las cabañas de pescadores, frente al fiordo', 'Coche de alquiler y ruta diseñada día a día', 'Salida en barco por el Reinefjord'],
-    priceFrom: 1690,
-    image: lofotenImg,
-    imageAlt: 'Casas rojas y blancas de Reine junto al agua, bajo picos iluminados por el atardecer en las islas Lofoten',
-    imagePosition: '40% 60%',
+    highlight: 'Patios en flor, la Mezquita de Córdoba y la Alhambra al atardecer, con tren de alta velocidad entre ciudades.',
+    includes: ['Hoteles con encanto en los tres cascos históricos', 'Entradas con hora para la Alhambra y la Mezquita', 'Tren de alta velocidad entre las tres ciudades'],
+    image: andaluciaImg,
+    imageAlt: 'La Alhambra de Granada al atardecer, con las cumbres nevadas de Sierra Nevada al fondo',
+    imagePosition: '50% 45%',
+  }),
+  experience({
+    id: 'provenza',
+    group: 'europa',
+    featured: true,
+    title: 'Provenza y la Costa Azul',
+    region: 'Francia',
+    duration: '8 días',
+    highlight: 'Pueblos de piedra colgados de las colinas, campos de lavanda en julio y el Mediterráneo de Niza a Èze.',
+    includes: ['Mas provenzal en el Luberon y hotel frente al mar en Niza', 'Coche de alquiler con la ruta diseñada día a día', 'Mercado de Aix y cata en Châteauneuf-du-Pape'],
+    image: provenzaImg,
+    imageAlt: 'El pueblo de Gordes, con sus casas de piedra escalonadas sobre la colina, en la Provenza',
+    imagePosition: '50% 55%',
+  }),
+  experience({
+    id: 'portugal',
+    group: 'europa',
+    title: 'Portugal: Lisboa, Oporto y el valle del Duero',
+    region: 'Portugal',
+    duration: '8 días',
+    highlight: 'Tranvías y miradores en Lisboa, la Ribeira de Oporto y un valle de viñedos en terrazas, Patrimonio de la Humanidad.',
+    includes: ['Hoteles en Lisboa y Oporto, y una noche en una quinta', 'Tren entre ciudades y crucero por el Duero', 'Visita a dos bodegas de vino de Oporto'],
+    image: dueroImg,
+    imageAlt: 'Viñedos en terrazas sobre el río Duero y el pueblo de Pinhão, en el norte de Portugal',
+    imagePosition: '55% 50%',
   }),
   experience({
     id: 'toscana',
+    group: 'europa',
     title: "Toscana lenta: Val d'Orcia y Siena",
     region: 'Italia',
     duration: '7 días',
     highlight: 'Colinas de cipreses, pueblos medievales y cenas largas en un agriturismo.',
     includes: ['Agriturismo en Pienza con desayuno', "Coche de alquiler y rutas por la Val d'Orcia", 'Cata de Brunello en Montalcino'],
-    priceFrom: 1490,
     image: toscanaImg,
     imageAlt: "Hilera de cipreses junto a un campo arado con luz dorada de tarde en la Val d'Orcia, Toscana",
     imagePosition: '30% 50%',
   }),
   experience({
     id: 'cicladas',
+    group: 'europa',
     title: 'Cícladas a tu ritmo: Paros, Naxos y Folegandros',
     region: 'Grecia',
     duration: '9 días',
     highlight: 'Tres islas unidas en ferri, con calas tranquilas y pueblos encalados al borde del acantilado.',
     includes: ['Hoteles boutique en las tres islas', 'Ferris entre islas con billete reservado', 'Traslados entre puerto y hotel'],
-    priceFrom: 1850,
     image: cicladasImg,
     imageAlt: 'Casas blancas de la Chora de Folegandros asomadas a un acantilado sobre el mar Egeo',
     imagePosition: '35% 50%',
   }),
   experience({
-    id: 'duero',
-    title: 'Oporto y el valle del Duero',
-    region: 'Portugal',
-    duration: '5 días',
-    highlight: 'La ciudad de los azulejos y un valle de viñedos en terrazas, Patrimonio de la Humanidad.',
-    includes: ['Hotel en Oporto y noche en una quinta del Duero', 'Crucero por el río y visita a dos bodegas', 'Tren panorámico de Oporto a Pinhão'],
-    priceFrom: 890,
-    image: dueroImg,
-    imageAlt: 'Viñedos en terrazas sobre el río Duero y el pueblo de Pinhão, en el norte de Portugal',
-    imagePosition: '55% 50%',
-  }),
-  experience({
     id: 'alpes-suizos',
+    group: 'europa',
     title: 'Alpes suizos en tren panorámico',
     region: 'Suiza',
     duration: '6 días',
     highlight: 'Del valle de Lauterbrunnen a los glaciares, por algunas de las vías más bonitas de Europa.',
     includes: ['Swiss Travel Pass de 6 días', 'Hoteles en Lauterbrunnen y Zermatt', 'Asiento reservado en el Glacier Express'],
-    priceFrom: 2190,
     image: suizaImg,
     imageAlt: 'Chalet de madera sobre un prado verde frente a las cumbres nevadas del valle de Lauterbrunnen, Suiza',
     imagePosition: '45% 60%',
   }),
   experience({
+    id: 'lofoten',
+    group: 'europa',
+    title: 'Lofoten y el sol de medianoche',
+    region: 'Noruega',
+    duration: '7 días',
+    highlight: 'Pueblos de pescadores entre picos que caen al mar, con luz casi infinita en verano.',
+    includes: ['Rorbuer, las cabañas de pescadores, frente al fiordo', 'Coche de alquiler y ruta diseñada día a día', 'Salida en barco por el Reinefjord'],
+    image: lofotenImg,
+    imageAlt: 'Casas rojas y blancas de Reine junto al agua, bajo picos iluminados por el atardecer en las islas Lofoten',
+    imagePosition: '40% 60%',
+  }),
+  experience({
     id: 'islandia',
+    group: 'europa',
     title: 'Islandia: costa sur y laguna glaciar',
     region: 'Islandia',
     duration: '8 días',
     highlight: 'Cascadas, playas de arena negra e icebergs a la deriva en Jökulsárlón.',
     includes: ['Granjas y hoteles rurales seleccionados', 'Todoterreno con seguro a todo riesgo', 'Navegación entre icebergs'],
-    priceFrom: 2150,
     image: islandiaImg,
     imageAlt: 'Icebergs azulados flotando en la laguna glaciar de Jökulsárlón bajo un cielo nublado, Islandia',
     imagePosition: '50% 70%',
   }),
+
+  /* --- Más allá de Europa --- */
+  experience({
+    id: 'australia',
+    group: 'mundo',
+    featured: true,
+    title: 'Australia: Sídney, la Gran Barrera y Uluru',
+    region: 'Australia',
+    duration: '15 días',
+    highlight: 'La bahía de Sídney, un día en el arrecife de coral y el amanecer en el desierto rojo, con los vuelos internos ya resueltos.',
+    includes: ['Vuelos internos entre Sídney, Cairns y Uluru', 'Barco y snorkel en la Gran Barrera de Coral', 'Amanecer en Uluru con guía local'],
+    image: australiaImg,
+    imageAlt: 'La Ópera de Sídney y el puente de la bahía vistos desde el agua en un día soleado',
+    imagePosition: '40% 40%',
+  }),
+  experience({
+    id: 'japon',
+    group: 'mundo',
+    featured: true,
+    title: 'Japón esencial: Tokio, Hakone y Kioto',
+    region: 'Asia · Japón',
+    duration: '12 días',
+    highlight: 'Del neón de Tokio a las calles de madera de Kioto, con una noche en un ryokan junto a las aguas termales de Hakone.',
+    includes: ['Tren bala con asientos reservados', 'Noche en ryokan con onsen y cena kaiseki', 'Guía local en Kioto y Nara'],
+    image: japonImg,
+    imageAlt: 'Calle empedrada de Yasaka-dori con casas de madera y farolillos, y la pagoda de Yasaka al fondo, en Kioto',
+    imagePosition: '50% 30%',
+  }),
 ];
 
-/** Precio más bajo del catálogo (se usa en textos y datos estructurados). */
-export const lowestPrice = Math.min(...experiences.map((e) => e.priceFrom));
+/* ------------------------------------------------------------------ */
+/* Viajes a Europa desde Latinoamérica                                 */
+/* ------------------------------------------------------------------ */
+
+/** Mensaje de WhatsApp de cada salida: país de origen, ruta y duración. */
+export function latamMessage(country: string, route: string, duration: string): string {
+  return `Hola, escribo desde ${country} y quiero viajar a Europa: ${route}, ${duration}, con vuelo incluido. Fechas y número de viajeros:`;
+}
+
+export interface LatamTrip {
+  id: string;
+  country: string;
+  /** Ciudades de salida con vuelo directo o la mejor conexión. */
+  cities: string;
+  /** Puerta de entrada a Europa. */
+  gateway: string;
+  flightTime: string;
+  route: string;
+  duration: string;
+  whatsappText: string;
+}
+
+function latamTrip(data: Omit<LatamTrip, 'whatsappText'>): LatamTrip {
+  return { ...data, whatsappText: latamMessage(data.country, data.route, data.duration) };
+}
+
+/**
+ * Salidas desde Latinoamérica, con vuelo de ida y vuelta incluido. Revisa las rutas aéreas cada
+ * temporada (las aerolíneas cambian frecuencias).
+ */
+export const latamTrips: LatamTrip[] = [
+  latamTrip({
+    id: 'brasil',
+    country: 'Brasil',
+    cities: 'São Paulo, Río de Janeiro y otras capitales',
+    gateway: 'Lisboa',
+    flightTime: 'unas 10 h',
+    route: 'Lisboa, Oporto y Madrid',
+    duration: '12 días',
+  }),
+  latamTrip({
+    id: 'colombia',
+    country: 'Colombia',
+    cities: 'Bogotá y Medellín',
+    gateway: 'Madrid',
+    flightTime: 'unas 10 h',
+    route: 'Madrid, Andalucía y Lisboa',
+    duration: '12 días',
+  }),
+  latamTrip({
+    id: 'argentina',
+    country: 'Argentina',
+    cities: 'Buenos Aires',
+    gateway: 'Madrid o Roma',
+    flightTime: 'unas 12 h',
+    route: 'Roma, Florencia, Venecia y Barcelona',
+    duration: '14 días',
+  }),
+  latamTrip({
+    id: 'chile',
+    country: 'Chile',
+    cities: 'Santiago',
+    gateway: 'Madrid',
+    flightTime: 'unas 13 h',
+    route: 'Madrid, Barcelona y París',
+    duration: '14 días',
+  }),
+  latamTrip({
+    id: 'peru',
+    country: 'Perú',
+    cities: 'Lima',
+    gateway: 'Madrid',
+    flightTime: 'unas 12 h',
+    route: 'Madrid, Toledo, Sevilla y Granada',
+    duration: '12 días',
+  }),
+];
+
+/** Lo que resuelve la agencia para quien viaja desde Latinoamérica. */
+export const latamPerks = [
+  {
+    icon: 'passport',
+    text: 'Sin visado para estancias turísticas de hasta 90 días en el espacio Schengen. Antes de pagar te enviamos por escrito los requisitos de entrada vigentes.',
+  },
+  { icon: 'plane', text: 'Vuelo de ida y vuelta incluido desde tu ciudad, con las conexiones más cómodas.' },
+  { icon: 'lock', text: 'Pagas en euros con tarjeta internacional, Apple Pay o Google Pay, con un enlace seguro de Stripe.' },
+] as const;
 
 /* ------------------------------------------------------------------ */
 /* Alquiler de vehículos (tierra y agua)                               */
 /* ------------------------------------------------------------------ */
 
-/** Mensaje de WhatsApp de cada vehículo: nombre exacto, precio por día y hueco para destino y fechas. */
-export function rentalMessage(name: string, priceFrom: number): string {
-  return `Hola, estoy en Europa y quiero consultar disponibilidad y tarifa para alquilar: ${name} (Desde ${formatPrice(priceFrom, ' ')}/día). Destino y fechas:`;
+/** Mensaje de WhatsApp de cada vehículo: nombre exacto y hueco para destino y fechas. */
+export function rentalMessage(name: string): string {
+  return `Hola, quiero consultar disponibilidad y tarifa para alquilar: ${name}. Destino y fechas:`;
 }
 
 export interface RentalOption {
   id: string;
   name: string;
   detail: string;
-  /** Precio orientativo por día en euros. */
-  priceFrom: number;
   whatsappText: string;
 }
 
@@ -235,10 +373,9 @@ export interface RentalCategory {
 }
 
 function rental(data: Omit<RentalOption, 'whatsappText'>): RentalOption {
-  return { ...data, whatsappText: rentalMessage(data.name, data.priceFrom) };
+  return { ...data, whatsappText: rentalMessage(data.name) };
 }
 
-/** Precios orientativos «desde» por día (temporada baja): ajústalos a tus tarifas reales. */
 export const rentalCategories: RentalCategory[] = [
   {
     id: 'carretera',
@@ -249,10 +386,10 @@ export const rentalCategories: RentalCategory[] = [
     imageAlt: 'Curvas del paso del Stelvio subiendo entre montañas nevadas en los Alpes italianos',
     caption: 'Paso del Stelvio, Italia',
     options: [
-      rental({ id: 'coche', name: 'Coche de alquiler', detail: 'Del utilitario al descapotable, con recogida en aeropuerto o estación.', priceFrom: 39 }),
-      rental({ id: '4x4', name: 'Todoterreno 4x4', detail: 'Para Islandia, las Highlands escocesas o los puertos alpinos.', priceFrom: 79 }),
-      rental({ id: 'camper', name: 'Camper o autocaravana', detail: 'Cama, cocina y la libertad de dormir donde te pille el atardecer.', priceFrom: 95 }),
-      rental({ id: 'minivan', name: 'Minivan con conductor', detail: 'Hasta 8 personas, para traslados y excursiones sin preocuparte de aparcar.', priceFrom: 290 }),
+      rental({ id: 'coche', name: 'Coche de alquiler', detail: 'Del utilitario al descapotable, con recogida en aeropuerto o estación.' }),
+      rental({ id: '4x4', name: 'Todoterreno 4x4', detail: 'Para Islandia, las Highlands escocesas o los puertos alpinos.' }),
+      rental({ id: 'camper', name: 'Camper o autocaravana', detail: 'Cama, cocina y la libertad de dormir donde te pille el atardecer.' }),
+      rental({ id: 'minivan', name: 'Minivan con conductor', detail: 'Hasta 8 personas, para traslados y excursiones sin preocuparte de aparcar.' }),
     ],
   },
   {
@@ -264,10 +401,10 @@ export const rentalCategories: RentalCategory[] = [
     imageAlt: 'Yates y veleros amarrados en el puerto de Hvar, junto a los tejados rojos del pueblo y el Adriático',
     caption: 'Puerto de Hvar, Croacia',
     options: [
-      rental({ id: 'lancha', name: 'Lancha sin titulación', detail: 'Pequeñas embarcaciones para recorrer calas por tu cuenta, según la normativa de cada país.', priceFrom: 150 }),
-      rental({ id: 'velero', name: 'Velero', detail: 'Con patrón, o sin él si tienes la titulación náutica que corresponde.', priceFrom: 320 }),
-      rental({ id: 'catamaran', name: 'Catamarán', detail: 'Más espacio y estabilidad a bordo, ideal para familias y grupos de amigos.', priceFrom: 650 }),
-      rental({ id: 'yate', name: 'Yate con tripulación', detail: 'Patrón y tripulación profesional, con la ruta que tú elijas.', priceFrom: 1200 }),
+      rental({ id: 'lancha', name: 'Lancha sin titulación', detail: 'Pequeñas embarcaciones para recorrer calas por tu cuenta, según la normativa de cada país.' }),
+      rental({ id: 'velero', name: 'Velero', detail: 'Con patrón, o sin él si tienes la titulación náutica que corresponde.' }),
+      rental({ id: 'catamaran', name: 'Catamarán', detail: 'Más espacio y estabilidad a bordo, ideal para familias y grupos de amigos.' }),
+      rental({ id: 'yate', name: 'Yate con tripulación', detail: 'Patrón y tripulación profesional, con la ruta que tú elijas.' }),
     ],
   },
 ];
@@ -310,6 +447,15 @@ export const testimonials: Testimonial[] = [
     example: true,
   },
   {
+    name: 'Valentina y Camilo',
+    city: 'Medellín',
+    trip: 'Madrid, Andalucía y Lisboa · abril de 2026',
+    rating: 5,
+    quote:
+      'Era nuestro primer viaje a Europa y nos daba miedo todo: la escala, qué nos iban a preguntar en migración, si el seguro alcanzaba. Nos mandaron una lista con los papeles que había que llevar y nos consiguieron vuelo directo desde Medellín. Lo único, la diferencia horaria: a veces nos contestaban cuando acá era de madrugada, pero siempre contestaron.',
+    example: true,
+  },
+  {
     name: 'Javier y Noelia',
     city: 'Barcelona',
     trip: 'Camper en Islandia · octubre de 2026',
@@ -334,6 +480,15 @@ export const testimonials: Testimonial[] = [
     rating: 5,
     quote:
       'Soy argentina, vivo en Berlín y la verdad me daba desconfianza pagar con un link que te mandan por WhatsApp. Antes me pasaron todo por escrito, y el enlace era de Stripe con el nombre de la agencia, así que tranquila. Fui con mis viejos y el agriturismo de Pienza fue lo que más les gustó.',
+    example: true,
+  },
+  {
+    name: 'Sergio T.',
+    city: 'Valencia',
+    trip: 'Japón esencial · octubre de 2026',
+    rating: 5,
+    quote:
+      'Doce días en Japón sin pelearme con ninguna web en japonés. Los trenes iban reservados, el ryokan de Hakone tenía onsen privado (muy recomendable) y la guía de Kioto nos llevó a Fushimi Inari a primera hora, antes de que llegaran los autobuses. Ya estamos mirando Corea con ellos.',
     example: true,
   },
   {
@@ -374,13 +529,12 @@ export const faqs: Faq[] = [
   },
   {
     question: '¿Es seguro pagar desde un enlace recibido por chat?',
-    answerHtml:
-      'Sí, siempre que el enlace sea de Stripe. Comprueba que la dirección empieza por <strong>https://buy.stripe.com</strong> o <strong>https://checkout.stripe.com</strong> y que en la página aparece «Brújula Europa». Nunca te pediremos los datos de tu tarjeta por mensaje ni transferencias a cuentas personales.',
+    answerHtml: `Sí, siempre que el enlace sea de Stripe. Comprueba que la dirección empieza por <strong>https://buy.stripe.com</strong> o <strong>https://checkout.stripe.com</strong> y que en la página aparece «${site.name}». Nunca te pediremos los datos de tu tarjeta por mensaje ni transferencias a cuentas personales.`,
   },
   {
     question: '¿Puedo pagar a plazos con Klarna?',
     answerHtml:
-      'Sí. Al abrir el enlace de pago verás Klarna como una opción más, que te permite fraccionar el importe en cuotas según las modalidades disponibles y sujeto a su aprobación. Antes de confirmar ves el calendario de pagos y cualquier coste, sin sorpresas.',
+      'Sí, si resides en uno de los países europeos donde opera Klarna. Al abrir el enlace de pago la verás como una opción más, que te permite fraccionar el importe en cuotas según las modalidades disponibles y sujeto a su aprobación. Antes de confirmar ves el calendario de pagos y cualquier coste. Desde Latinoamérica puedes pagar con tarjeta, Apple Pay o Google Pay.',
   },
   {
     question: '¿En qué moneda se cobra?',
@@ -397,9 +551,19 @@ export const faqs: Faq[] = [
       'Sí. Puedes pedir cambios de fecha o de viajeros según disponibilidad, y cancelar en cualquier momento antes de la salida. Las condiciones de cada viaje te las enviamos por escrito antes de pagar, y las devoluciones se hacen por el mismo método de pago en Stripe. Tienes todos los detalles en la <a href="/politica-de-reembolsos">política de reembolsos</a>.',
   },
   {
-    question: '¿Los precios incluyen los vuelos?',
+    question: '¿Por qué no publicáis precios?',
     answerHtml:
-      'Los precios «desde» incluyen lo que indica cada ruta: alojamiento, transporte interno, traslados y actividades. Los vuelos internacionales no están incluidos por defecto, pero tu asesor puede buscarlos y añadirlos a tu presupuesto.',
+      'Porque cada viaje es a medida: el precio depende de las fechas, la temporada, la antelación y el número de viajeros. Escríbenos por WhatsApp y tu asesor te envía un presupuesto cerrado en euros, sin compromiso.',
+  },
+  {
+    question: '¿El presupuesto incluye los vuelos?',
+    answerHtml:
+      'Depende del viaje. En las rutas por Europa, Australia y Asia, el presupuesto incluye lo que indica cada ruta (alojamiento, transporte interno, traslados y actividades) pero no los vuelos internacionales; tu asesor puede buscarlos y añadirlos. En los viajes desde Latinoamérica, el vuelo de ida y vuelta desde tu ciudad sí está incluido.',
+  },
+  {
+    question: '¿Necesito visado para viajar a Europa desde Latinoamérica?',
+    answerHtml:
+      'Con pasaporte de Brasil, Colombia, Argentina, Chile o Perú no necesitas visado para estancias turísticas de hasta 90 días (dentro de un periodo de 180) en el espacio Schengen. El pasaporte debe seguir vigente al menos tres meses después de tu salida de Europa, y necesitarás la autorización electrónica ETIAS cuando sea obligatoria. Antes de pagar te enviamos por escrito los requisitos actualizados para tu caso.',
   },
   {
     question: '¿Qué necesito para alquilar un coche, una camper o un barco?',

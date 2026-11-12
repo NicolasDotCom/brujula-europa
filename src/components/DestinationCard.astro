@@ -1,25 +1,33 @@
 ---
 // Tarjeta de experiencia. El CTA es el único enlace (no toda la tarjeta), con nombre accesible
-// único por destino para lectores de pantalla.
+// único por destino para lectores de pantalla. «featured» = tarjeta grande (media fila en escritorio).
 import { Picture } from 'astro:assets';
-import { formatPrice, getWhatsAppUrl, type Experience } from '../config/site';
+import { getWhatsAppUrl, type Experience } from '../config/site';
 import Icon from './Icon.astro';
 
 interface Props {
   experience: Experience;
+  featured?: boolean;
 }
-const { experience: exp } = Astro.props;
+const { experience: exp, featured = false } = Astro.props;
 const titleId = `exp-${exp.id}-title`;
+const sizes = featured
+  ? '(min-width: 86rem) 39rem, (min-width: 64rem) 46vw, (min-width: 40rem) 46vw, 80vw'
+  : '(min-width: 86rem) 26rem, (min-width: 64rem) 31vw, (min-width: 40rem) 46vw, 80vw';
 ---
 
-<article class="card relative flex h-full flex-col" aria-labelledby={titleId} data-experience={exp.id}>
+<article
+  class:list={['card relative flex h-full flex-col', featured && 'card-featured']}
+  aria-labelledby={titleId}
+  data-experience={exp.id}
+>
   <div class="card-media">
     <Picture
       src={exp.image}
       formats={['avif']}
       fallbackFormat="webp"
       widths={[400, 560, 720, 960, 1280]}
-      sizes="(min-width: 86rem) 26rem, (min-width: 64rem) 31vw, (min-width: 40rem) 46vw, 80vw"
+      sizes={sizes}
       alt={exp.imageAlt}
       quality={50}
       loading="lazy"
@@ -33,24 +41,17 @@ const titleId = `exp-${exp.id}-title`;
     <p class="text-[0.75rem] font-semibold uppercase tracking-[0.14em] text-navy">
       {exp.region}<span class="sr-only">, {exp.duration}</span>
     </p>
-    <h3 id={titleId} class="card-title mt-2.5">{exp.title}</h3>
+    <h4 id={titleId} class="card-title mt-2.5">{exp.title}</h4>
     <p class="mt-3 text-ink-2">{exp.highlight}</p>
 
     <p class="sr-only">Incluye:</p>
-    <ul class="check-list small mt-5 text-ink" role="list">
+    <ul class="check-list small mb-7 mt-5 text-ink" role="list">
       {exp.includes.map((item) => <li>{item}</li>)}
     </ul>
 
-    <div class="mt-auto pt-7">
-      <div class="flex items-end justify-between gap-4 border-t border-line pt-5">
-        <p class="flex items-baseline gap-2">
-          <span class="small text-ink-2">Desde</span>
-          <span class="price">{formatPrice(exp.priceFrom)}</span>
-        </p>
-        <p class="small text-ink-2">por persona</p>
-      </div>
+    <div class="card-foot">
       <a
-        class="btn btn-outline mt-5 w-full"
+        class="btn btn-outline card-cta"
         href={getWhatsAppUrl(exp.whatsappText)}
         target="_blank"
         rel="noopener"

@@ -1,14 +1,15 @@
-# Brújula Europa · brujulaeuropa.com
+# Victoria Tours
 
-Landing estática de viajes a medida y alquiler de vehículos (coches, campers, veleros, yates…)
-por Europa. Conversión 100 % por WhatsApp y cobro con
-enlaces de pago de Stripe en euros (tarjeta, Apple Pay, Google Pay y Klarna).
+Landing estática de viajes a medida por Europa, Australia y Asia, viajes a Europa desde
+Latinoamérica (Brasil, Colombia, Argentina, Chile y Perú, con vuelo incluido) y alquiler de
+vehículos (coches, campers, veleros, yates…). Conversión 100 % por WhatsApp y cobro con enlaces
+de pago de Stripe en euros (tarjeta, Apple Pay, Google Pay y Klarna).
 
 - **Stack:** Astro 7 (salida estática) + Tailwind CSS 4. 0 KB de JS de frameworks: solo dos
   scripts en línea de menos de 1 KB (aviso de cookies y cierre del menú móvil, que es un
   popover nativo).
 - **Rendimiento (Lighthouse 13.5, build local):** escritorio 100 · 100 · 100 · 100;
-  móvil 97 · 100 · 100 · 100 (LCP 2,6 s en 4G simulado, CLS 0, TBT 0).
+  móvil 98 · 100 · 100 · 100 (LCP 2,5 s en 4G simulado, CLS 0, TBT 0).
 - **Fuentes autoalojadas** (sin Google Fonts, sin peticiones a terceros): Newsreader estática
   (22 KB) para titulares y Albert Sans (22 KB) para texto.
 - **Imágenes:** AVIF con respaldo WebP, responsive, generadas por Astro en el build.
@@ -31,26 +32,49 @@ Las pruebas usan el Chrome instalado en el sistema (`channel: 'chrome'`) y el pu
 | --- | --- |
 | WhatsApp, correo, teléfono, horario, datos fiscales y legales | `src/config/site.ts` → `site` |
 | Mensajes prellenados de WhatsApp por botón | `src/config/site.ts` → `whatsappMessages` |
-| Catálogo de 6 experiencias (precio, qué incluye, foto…) | `src/config/site.ts` → `experiences` |
-| Alquiler de vehículos (tierra y mar, precio desde/día) | `src/config/site.ts` → `rentalCategories` y `rentalPerks` |
+| Catálogo de 10 experiencias (8 en Europa y 2 fuera: qué incluye, foto, tarjeta grande…) | `src/config/site.ts` → `experiences` (`group`, `featured`) |
+| Viajes desde Latinoamérica (ciudades de salida, ruta, vuelo) | `src/config/site.ts` → `latamTrips` y `latamPerks` |
+| Alquiler de vehículos (tierra y mar) | `src/config/site.ts` → `rentalCategories` y `rentalPerks` |
 | Opiniones de clientes | `src/config/site.ts` → `testimonials` |
 | Preguntas frecuentes | `src/config/site.ts` → `faqs` |
 | Créditos de las fotos | `src/config/photos.ts` |
 | Colores y tipografía | `src/styles/global.css` (`@theme`) y `astro.config.mjs` (`fonts`) |
+| Logotipo en la web | `src/components/Logo.astro` y el `<symbol id="i-logo">` de `src/layouts/BaseLayout.astro` |
 | Textos legales | `src/pages/*.astro` |
 
-El mensaje de WhatsApp de cada experiencia se genera solo a partir del título y el precio:
-«Hola, estoy en Europa y quiero consultar disponibilidad y tarifa para la experiencia: [Título] (Desde [Precio] €)».
+La web no publica precios: el asesor envía el presupuesto por WhatsApp. Los mensajes se generan
+solos a partir de los datos, para que el asesor sepa qué te interesa:
+
+- Experiencia: «Hola, estoy en Europa y quiero consultar disponibilidad y tarifa para la experiencia: [Título]».
+- Salida desde Latinoamérica: «Hola, escribo desde [País] y quiero viajar a Europa: [Ruta], [Días], con vuelo incluido. Fechas y número de viajeros:».
+- Alquiler: «Hola, quiero consultar disponibilidad y tarifa para alquilar: [Vehículo]. Destino y fechas:».
+
+## Logotipo y archivos de marca
+
+El logo es una «V» de laurel (victoria) con una estrella de cuatro puntas (rumbo), junto al nombre
+en versales: VICTORIA en la serif de los titulares y TOURS espaciado en la sans del texto. La
+carpeta `brand/` (no se publica en la web) tiene los archivos para usarlo fuera:
+
+| Archivo | Para qué |
+| --- | --- |
+| `victoria-tours-logo.svg` / `.png` | Logo horizontal en color, fondo transparente (texto en trazos, no necesita fuentes) |
+| `victoria-tours-logo-blanco.svg` / `.png` | Versión clara para fondos oscuros |
+| `victoria-tours-simbolo.svg` / `-blanco.svg` | Solo el símbolo |
+| `victoria-tours-perfil-640.png` | Foto de perfil de WhatsApp Business y redes (se recorta en círculo sin perder el símbolo) |
+| `victoria-tours-icono-512.png` | Icono de marca en Stripe (Configuración → Marca) |
+
+El favicon y el icono de iOS están en `public/`.
 
 ## ⚠️ Antes de publicar
 
-1. Busca `⚠️ RELLENAR` en `src/config/site.ts` y sustituye: número de WhatsApp, teléfono,
+1. Busca `⚠️ RELLENAR` en `src/config/site.ts` y `astro.config.mjs` y sustituye: **dominio** (ahora
+   `victoriatours.com` provisional, en los dos archivos), número de WhatsApp, teléfono,
    correo, razón social, NIF/CIF, domicilio, datos registrales, **código de agencia de viajes**
    y **garantía de insolvencia** (ambos obligatorios en España para vender viajes combinados).
-2. Ajusta los precios «desde» de las rutas y de cada vehículo de alquiler a tus tarifas reales,
-   y revisa las ventajas de `rentalPerks` (seguro, recogida, fianza) y la tabla de cancelación de
-   alquileres en `src/pages/politica-de-reembolsos.astro`.
-3. **Opiniones:** las 6 actuales son de EJEMPLO (`example: true`) y el build lo avisa en cada
+2. Revisa las ventajas de `rentalPerks` (seguro, recogida, fianza), la tabla de cancelación de
+   alquileres en `src/pages/politica-de-reembolsos.astro` y, cada temporada, las rutas aéreas de
+   `latamTrips` (las aerolíneas cambian frecuencias).
+3. **Opiniones:** las 8 actuales son de EJEMPLO (`example: true`) y el build lo avisa en cada
    ejecución. Publicar reseñas inventadas como reales está prohibido en la UE (Directiva Ómnibus,
    incorporada a la ley española) y se sanciona. Sustitúyelas por opiniones reales, pon
    `example: false` y asegúrate de cumplir lo que dice el texto de la sección («pedimos la opinión
@@ -74,5 +98,5 @@ Las URLs no llevan barra final (`/aviso-legal`), así que no hay redirecciones.
 
 - `_version-anterior/` guarda la versión previa del proyecto (ignorada por git, no se despliega).
   Puedes borrarla cuando quieras.
-- El aviso de cookies guarda la elección en `localStorage` (`be-cookie-consent`) y emite el
-  evento `be:consent`. Si algún día añades analítica, cárgala solo cuando el valor sea `all`.
+- El aviso de cookies guarda la elección en `localStorage` (`vt-cookie-consent`) y emite el
+  evento `vt:consent`. Si algún día añades analítica, cárgala solo cuando el valor sea `all`.
